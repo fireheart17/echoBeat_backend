@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS albums (
 );
 
 CREATE TABLE IF NOT EXISTS tracks (
-    track_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    track_id VARCHAR(255) PRIMARY KEY,
     track_name VARCHAR(255),
     genre VARCHAR(255),
     lyrics TEXT,
@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS tracks (
     country VARCHAR(255),
     like_count INT DEFAULT 0,
     listen_count INT DEFAULT 0,
-    album_id BIGINT
+    album_id BIGINT DEFAULT 0
 );
 
 CREATE TABLE IF NOT EXISTS charts (
@@ -89,4 +89,35 @@ CREATE TABLE IF NOT EXISTS playlist_tracks (
     playlist_id BIGINT NOT NULL,
     track_id BIGINT NOT NULL,
     PRIMARY KEY (playlist_id, track_id)
+);
+
+
+CREATE TABLE IF NOT EXISTS podcast_creators (
+    podcast_id BIGINT,
+    artist_id BIGINT,
+    PRIMARY KEY (podcast_id, artist_id)
+);
+
+CREATE TABLE IF NOT EXISTS podcast (
+    podcast_id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    podcast_name VARCHAR(255),
+    genre VARCHAR(100),
+    lyrics TEXT,
+    duration INT,
+    country VARCHAR(100),
+    like_count INT DEFAULT 0,
+    listen_count INT DEFAULT 0
+);
+
+CREATE TABLE IF NOT EXISTS Ranking (
+    rank_id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    chart_id BIGINT,
+    rank_val BIGINT
+);
+
+CREATE TABLE IF NOT EXISTS SocialMedia (
+    artist_id BIGINT,
+    socialmediatype VARCHAR(255),
+    socialmediahandle VARCHAR(255),
+    PRIMARY KEY (artist_id, socialmediatype)
 );

@@ -10,7 +10,7 @@ public class Ranking {
 
     }
 
-    public Ranking(long chart_id,long rank) {
+    public Ranking(long chart_id,long rank_val) {
         this.chart_id = chart_id;
         this.rank_val = rank_val;
     }

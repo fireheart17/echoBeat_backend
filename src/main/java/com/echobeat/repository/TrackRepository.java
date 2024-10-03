@@ -37,14 +37,14 @@ public class TrackRepository implements TrackInterface {
 
     // Delete a track by ID
     @Override
-    public int deleteById(long id) {
+    public int deleteById(String id) {
         String sql = "DELETE FROM tracks WHERE track_id = ?";
         return jdbcTemplate.update(sql, id);
     }
 
     // Find a track by ID
     @Override
-    public Track findById(long id) {
+    public Track findById(String id) {
         String sql = "SELECT * FROM tracks WHERE track_id = ?";
         return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Track.class), id);
     }

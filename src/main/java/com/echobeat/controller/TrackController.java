@@ -24,7 +24,7 @@ public class TrackController {
     TrackInterface trackRepository;
 
     @GetMapping("/tracks/{id}")
-    public ResponseEntity<Track> getTrackById(@PathVariable("id") long id) {
+    public ResponseEntity<Track> getTrackById(@PathVariable("id") String id) {
         Track track = trackRepository.findById(id);
 
         if (track != null) {
@@ -46,7 +46,7 @@ public class TrackController {
     }
 
     @PostMapping("/tracks/{id}")
-    public ResponseEntity<String> updateTrack(@PathVariable("id") long id, @RequestBody Track track) {
+    public ResponseEntity<String> updateTrack(@PathVariable("id") String id, @RequestBody Track track) {
         Track existingTrack = trackRepository.findById(id);
 
         if (existingTrack != null) {
@@ -67,7 +67,7 @@ public class TrackController {
     }
 
     @DeleteMapping("/tracks/{id}")
-    public ResponseEntity<String> deleteTrack(@PathVariable("id") long id) {
+    public ResponseEntity<String> deleteTrack(@PathVariable("id") String id) {
         int result = trackRepository.deleteById(id);
         if (result > 0) {
             return new ResponseEntity<>("Track was deleted successfully.", HttpStatus.OK);

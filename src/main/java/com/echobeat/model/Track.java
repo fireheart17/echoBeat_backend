@@ -2,7 +2,7 @@ package com.echobeat.model;
 
 public class Track {
 
-    private long track_id;
+    private String track_id;
 
     private String track_name;
     private String genre;
@@ -20,7 +20,7 @@ public class Track {
     public Track() {}
 
     // Parameterized constructor
-    public Track(long track_id, String track_name, String genre, String lyrics, int duration, String country, int like_count, int listen_count, long album_id) {
+    public Track(String track_id, String track_name, String genre, String lyrics, int duration, String country, int like_count, int listen_count, long album_id) {
         this.track_id = track_id;
         this.track_name = track_name;
         this.genre = genre;
@@ -33,11 +33,11 @@ public class Track {
     }
 
     // Getters and Setters
-    public long getTrack_id() {
+    public String getTrack_id() {
         return track_id;
     }
 
-    public void setTrack_id(long track_id) {
+    public void setTrack_id(String track_id) {
         this.track_id = track_id;
     }
 

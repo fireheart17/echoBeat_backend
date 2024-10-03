@@ -7,7 +7,7 @@ import com.echobeat.model.Track;
 public interface TrackInterface {
     int save(Track track);
     int update(Track track);
-    int deleteById(long id);
-    Track findById(long id);
+    int deleteById(String id);
+    Track findById(String id);
     List<Track> findAll();
 }
