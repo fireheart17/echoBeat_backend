@@ -17,3 +17,9 @@ CREATE TABLE IF NOT EXISTS playlists (
     user_id BIGINT ,
     PRIMARY KEY (playlist_id)
 );
+
+CREATE TABLE IF NOT EXISTS playlist_tracks (
+    playlist_id BIGINT NOT NULL,
+    track_id BIGINT NOT NULL,
+    PRIMARY KEY (playlist_id, track_id)
+);
