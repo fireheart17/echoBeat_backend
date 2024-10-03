@@ -1,8 +1,8 @@
 
 CREATE TABLE IF NOT EXISTS podcast_creators (
-    track_id BIGINT,
+    podcast_id BIGINT,
     artist_id BIGINT,
-    PRIMARY KEY (track_id, artist_id)
+    PRIMARY KEY (podcast_id, artist_id)
 );
 
 CREATE TABLE IF NOT EXISTS podcast (
