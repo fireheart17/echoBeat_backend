@@ -19,17 +19,17 @@ public class PodcastCreatorRepository implements PodcastCreatorInterface {
     @Override
     public PodcastCreator save(PodcastCreator podcastCreator) {
         String sql = "INSERT INTO podcast_creators (track_id, artist_id) VALUES (?, ?)";
-        jdbcTemplate.update(sql, podcastCreator.getTrack_id(), podcastCreator.getArtist_id());
+        jdbcTemplate.update(sql, podcastCreator.getPodcast_id(), podcastCreator.getArtist_id());
         // Returning the saved PodcastCreator (assuming the artist_id doesn't change)
         return podcastCreator;
     }
 
     @Override
-    public PodcastCreator delete(long trackId, long artistId) {
-        PodcastCreator podcastCreator = findByTrackIdAndArtistId(trackId, artistId);
+    public PodcastCreator delete(long podcastId, long artistId) {
+        PodcastCreator podcastCreator = findByPodcastIdAndArtistId(podcastId, artistId);
         if (podcastCreator != null) {
             String sql = "DELETE FROM podcast_creators WHERE track_id = ? AND artist_id = ?";
-            jdbcTemplate.update(sql, trackId, artistId);
+            jdbcTemplate.update(sql, podcastId, artistId);
         }
         return podcastCreator; // Return the deleted PodcastCreator
     }
@@ -37,13 +37,13 @@ public class PodcastCreatorRepository implements PodcastCreatorInterface {
     @Override
     public void update(PodcastCreator podcastCreator) {
         String sql = "UPDATE podcast_creators SET artist_id = ? WHERE track_id = ?";
-        jdbcTemplate.update(sql, podcastCreator.getArtist_id(), podcastCreator.getTrack_id());
+        jdbcTemplate.update(sql, podcastCreator.getArtist_id(), podcastCreator.getPodcast_id());
     }
 
     @Override
-    public PodcastCreator findByTrackIdAndArtistId(long trackId, long artistId) {
+    public PodcastCreator findByPodcastIdAndArtistId(long podcastId, long artistId) {
         String sql = "SELECT * FROM podcast_creators WHERE track_id = ? AND artist_id = ?";
-        return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(PodcastCreator.class), trackId, artistId);
+        return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(PodcastCreator.class), podcastId, artistId);
     }
 
     @Override

@@ -1,9 +1,9 @@
 CREATE TABLE IF NOT EXISTS users (
     user_id BIGINT PRIMARY KEY AUTO_INCREMENT,
-    first_name VARCHAR(255) NOT NULL,
-    last_name VARCHAR(255) NOT NULL,
-    username VARCHAR(255) NOT NULL,
-    password VARCHAR(255) NOT NULL,
+    first_name VARCHAR(255),
+    last_name VARCHAR(255),
+    username VARCHAR(255),
+    password VARCHAR(255),
     dob TIME,
     age INT,
     gender VARCHAR(10),
@@ -22,4 +22,8 @@ CREATE TABLE IF NOT EXISTS artists (
     follower_count INT DEFAULT 0
 );
 
-
+CREATE TABLE IF NOT EXISTS track_creators (
+    track_id BIGINT,
+    artist_id BIGINT,
+    PRIMARY KEY (track_id, artist_id)
+);

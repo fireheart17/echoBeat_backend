@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.echobeat.model.PodcastCreator;
-import com.echobeat.repository.PodcastCreatorInterface;
+import com.echobeat.model.TrackCreator;
+import com.echobeat.repository.TrackCreatorInterface;
 
 @CrossOrigin(origins = "http://localhost:8081")
 @RestController
@@ -25,12 +25,12 @@ import com.echobeat.repository.PodcastCreatorInterface;
 public class PodcastCreatorController {
 
     @Autowired
-    private PodcastCreatorInterface podcastCreatorRepository;
+    private TrackCreatorInterface podcastCreatorRepository;
 
     @GetMapping("/podcast-creators")
-    public ResponseEntity<List<PodcastCreator>> getAllPodcastCreators() {
+    public ResponseEntity<List<TrackCreator>> getAllPodcastCreators() {
         try {
-            List<PodcastCreator> podcastCreators = new ArrayList<>();
+            List<TrackCreator> podcastCreators = new ArrayList<>();
             podcastCreatorRepository.findAll().forEach(podcastCreators::add);
 
             if (podcastCreators.isEmpty()) {
@@ -44,9 +44,9 @@ public class PodcastCreatorController {
     }
 
     @GetMapping("/podcast-creators/{trackId}/{artistId}")
-    public ResponseEntity<PodcastCreator> getPodcastCreatorById(@PathVariable("trackId") long trackId,
+    public ResponseEntity<TrackCreator> getPodcastCreatorById(@PathVariable("trackId") long trackId,
                                                                  @PathVariable("artistId") long artistId) {
-        PodcastCreator podcastCreator = podcastCreatorRepository.findByTrackIdAndArtistId(trackId, artistId);
+        TrackCreator podcastCreator = podcastCreatorRepository.findByTrackIdAndArtistId(trackId, artistId);
 
         if (podcastCreator != null) {
             return new ResponseEntity<>(podcastCreator, HttpStatus.OK);
@@ -56,9 +56,9 @@ public class PodcastCreatorController {
     }
 
     @PostMapping("/podcast-creators")
-    public ResponseEntity<PodcastCreator> createPodcastCreator(@RequestBody PodcastCreator podcastCreator) {
+    public ResponseEntity<TrackCreator> createPodcastCreator(@RequestBody TrackCreator podcastCreator) {
         try {
-            PodcastCreator createdPodcastCreator = podcastCreatorRepository.save(podcastCreator);
+            TrackCreator createdPodcastCreator = podcastCreatorRepository.save(podcastCreator);
             return new ResponseEntity<>(createdPodcastCreator, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -68,7 +68,7 @@ public class PodcastCreatorController {
     @PutMapping("/podcast-creators/{trackId}/{artistId}")
     public ResponseEntity<String> updatePodcastCreator(@PathVariable("trackId") long trackId,
                                                        @PathVariable("artistId") long artistId,
-                                                       @RequestBody PodcastCreator podcastCreator) {
+                                                       @RequestBody TrackCreator podcastCreator) {
         podcastCreator.setTrack_id(trackId);
         podcastCreator.setArtist_id(artistId);
 
@@ -84,7 +84,7 @@ public class PodcastCreatorController {
 public ResponseEntity<String> deletePodcastCreator(@PathVariable("trackId") long trackId,
                                                    @PathVariable("artistId") long artistId) {
     try {
-        PodcastCreator deletedPodcastCreator = podcastCreatorRepository.delete(trackId, artistId);
+        TrackCreator deletedPodcastCreator = podcastCreatorRepository.delete(trackId, artistId);
         if (deletedPodcastCreator != null) {
             return new ResponseEntity<>("PodcastCreator was deleted successfully.", HttpStatus.OK);
         } else {
