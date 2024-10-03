@@ -22,3 +22,4 @@ CREATE TABLE IF NOT EXISTS artists (
     follower_count INT DEFAULT 0
 );
 
+
