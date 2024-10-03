@@ -28,5 +28,11 @@ CREATE TABLE IF NOT EXISTS liked_playlists (
     PRIMARY KEY (user_id, playlist_id)
 );
 
+CREATE TABLE IF NOT EXISTS subscriptions (
+    subscription_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255),
+    price INT,
+    duration INT
+);
 
 

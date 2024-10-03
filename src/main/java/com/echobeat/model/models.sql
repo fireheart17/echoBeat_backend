@@ -22,4 +22,8 @@ CREATE TABLE IF NOT EXISTS artists (
     follower_count INT DEFAULT 0
 );
 
-
+CREATE TABLE IF NOT EXISTS track_creators (
+    track_id BIGINT,
+    artist_id BIGINT,
+    PRIMARY KEY (track_id, artist_id)
+);

@@ -5,9 +5,9 @@ import com.echobeat.model.PodcastCreator;
 
 public interface PodcastCreatorInterface {
     PodcastCreator save(PodcastCreator podcastCreator);
-    PodcastCreator delete(long trackId, long artistId);
+    PodcastCreator delete(long podcastId, long artistId);
     void update(PodcastCreator podcastCreator);
-    PodcastCreator findByTrackIdAndArtistId(long trackId, long artistId);
+    PodcastCreator findByPodcastIdAndArtistId(long podcastId, long artistId);
     List<PodcastCreator> findAll();
 }
 
