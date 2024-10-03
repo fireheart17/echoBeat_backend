@@ -21,3 +21,10 @@ CREATE TABLE IF NOT EXISTS Ranking (
     chart_id BIGINT,
     rank_val BIGINT
 );
+
+CREATE TABLE IF NOT EXISTS SocialMedia (
+    artist_id BIGINT,
+    socialmediatype VARCHAR(255),
+    socialmediahandle VARCHAR(255),
+    PRIMARY KEY (artist_id, socialmediatype)
+);
