@@ -15,3 +15,9 @@ CREATE TABLE IF NOT EXISTS podcast (
     like_count INT DEFAULT 0,
     listen_count INT DEFAULT 0
 );
+
+CREATE TABLE IF NOT EXISTS Ranking (
+    rank_id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    chart_id BIGINT,
+    rank_val BIGINT
+);
