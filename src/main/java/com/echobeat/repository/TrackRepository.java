@@ -55,4 +55,12 @@ public class TrackRepository implements TrackInterface {
         String sql = "SELECT * FROM tracks";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Track.class));
     }
+
+    // Find tracks by album ID
+    @Override
+    public List<Track> findByAlbumId(String albumId) {
+        String sql = "SELECT * FROM tracks WHERE album_id = ?";
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Track.class), albumId);
+    }
+
 }

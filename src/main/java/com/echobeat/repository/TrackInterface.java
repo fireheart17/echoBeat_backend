@@ -10,4 +10,5 @@ public interface TrackInterface {
     int deleteById(String id);
     Track findById(String id);
     List<Track> findAll();
+    List<Track> findByAlbumId(String albumId);
 }

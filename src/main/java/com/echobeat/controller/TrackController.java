@@ -1,5 +1,7 @@
 package com.echobeat.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -73,6 +75,17 @@ public class TrackController {
             return new ResponseEntity<>("Track was deleted successfully.", HttpStatus.OK);
         } else {
             return new ResponseEntity<>("Cannot find track with id=" + id, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("tracks/albums/{albumId}")
+    public ResponseEntity<List<Track>> getTracksByAlbumId(@PathVariable("albumId") String albumId) {
+        List<Track> tracks = trackRepository.findByAlbumId(albumId);
+
+        if (tracks.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(tracks, HttpStatus.OK);
         }
     }
 }

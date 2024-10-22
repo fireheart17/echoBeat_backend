@@ -1,5 +1,6 @@
 package com.echobeat.controller;
 
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,39 +26,47 @@ public class RankingController {
     RankingInterface rankingRepository;
 
     
-
-    @GetMapping("/rankings/{id}")
-    public ResponseEntity<Ranking> getRankingById(@PathVariable("id") long id) {
-        Ranking ranking = rankingRepository.findById(id);
-
-        if (ranking != null) {
-            return new ResponseEntity<>(ranking, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
-
     @PostMapping("/rankings")
     public ResponseEntity<String> createRanking(@RequestBody Ranking ranking) {
         try {
-            Ranking savedRanking = rankingRepository.save(new Ranking(ranking.getChart_id(), ranking.getRank_val())); // Updated to rank_val
-            return new ResponseEntity<>("Ranking was created successfully with ID: " + savedRanking.getRank_id(), HttpStatus.CREATED);
+            rankingRepository.save(ranking);
+            return new ResponseEntity<>("Ranking was created successfully.", HttpStatus.CREATED);
         } catch (Exception e) {
-            return new ResponseEntity<>(e.toString(), HttpStatus.INTERNAL_SERVER_ERROR);
+            System.out.println(e.toString());
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @DeleteMapping("/rankings/{id}")
-    public ResponseEntity<String> deleteRanking(@PathVariable("id") long id) {
-        try {
-            Ranking deletedRanking = rankingRepository.deleteById(id);
-            if (deletedRanking != null) {
-                return new ResponseEntity<>("Ranking was deleted successfully: " + deletedRanking.toString(), HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>("Cannot find Ranking with id=" + id, HttpStatus.NOT_FOUND);
-            }
-        } catch (Exception e) {
-            return new ResponseEntity<>("Cannot delete ranking.", HttpStatus.INTERNAL_SERVER_ERROR);
+    @GetMapping("/rankings/{chartid}")
+    public ResponseEntity<List<Ranking>> getRankingByChartId(@PathVariable("chartid") long chartid) {
+        List<Ranking> rankings = rankingRepository.findByChartId(chartid);
+
+        if (rankings.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(rankings, HttpStatus.OK);
         }
     }
+
+    @DeleteMapping("/rankings/{chartid}/{trackid}")
+    public ResponseEntity<String> deleteRankingByTrack(@PathVariable("chartid") long chartid, @PathVariable("trackid") long trackid) {
+        try {
+            rankingRepository.deleteByTrack(trackid, chartid);
+            return new ResponseEntity<>("Ranking deleted successfully.", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error deleting ranking.", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @DeleteMapping("/rankings/{chartid}/{rank}")
+    public ResponseEntity<String> deleteRankingByRank(@PathVariable("chartid") long chartid, @PathVariable("rank") int rank) {
+        try {
+            rankingRepository.deleteByRank(rank, chartid);
+            return new ResponseEntity<>("Ranking deleted successfully.", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error deleting ranking.", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
 }
