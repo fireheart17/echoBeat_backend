@@ -1,12 +1,14 @@
-package com.echobeat.repository;
 
+package com.echobeat.repository;
+import java.util.List;
 import com.echobeat.model.Ranking;
 
 
 public interface RankingInterface {
     Ranking save(Ranking ranking);
-    Ranking findById(long rankId);
+    List<Ranking> findByChartId(long chart_id);
     Ranking update(Ranking ranking);
-    Ranking deleteById(long rankId);
+    Ranking deleteByRank(long rank_val, long chartId);
+    Ranking deleteByTrack(long trackId, long chartId);
 }
 

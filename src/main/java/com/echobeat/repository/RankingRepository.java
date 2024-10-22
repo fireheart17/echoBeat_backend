@@ -1,5 +1,6 @@
 package com.echobeat.repository;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -14,45 +15,37 @@ public class RankingRepository implements RankingInterface {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    // Find Ranking by ID
-    @Override
-    public Ranking findById(long id) {
-        String sql = "SELECT * FROM Ranking WHERE rank_id = ?";
-        return jdbcTemplate.queryForObject(
-            sql, 
-            new Object[]{id}, 
-            new BeanPropertyRowMapper<>(Ranking.class)
-        );
-    }
-
-    // Save Ranking (Insert) and return the saved Ranking
     @Override
     public Ranking save(Ranking ranking) {
-        String sql = "INSERT INTO Ranking (chart_id, rank_val) VALUES (?, ?)"; // Updated to rank_val
-        jdbcTemplate.update(sql, ranking.getChart_id(), ranking.getRank_val()); // Updated to rank_val
-
-        // Fetch the last inserted rank_id
-        String getLastIdSql = "SELECT LAST_INSERT_ID()";
-        Long newRankId = jdbcTemplate.queryForObject(getLastIdSql, Long.class);
-
-        // Return the inserted Ranking
-        return findById(newRankId);
+        String sql = "INSERT INTO rankings (track_id, chart_id, rank_val) VALUES (?, ?, ?)";
+        jdbcTemplate.update(sql, ranking.getTrack_id(), ranking.getChart_id(), ranking.getRank_val());
+        return ranking;
     }
 
-    // Update Ranking and return the updated Ranking
+    @Override
+    public List<Ranking> findByChartId(long chartId) {
+        String sql = "SELECT * FROM rankings WHERE chart_id = ?";
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Ranking.class), chartId);
+    }
+
     @Override
     public Ranking update(Ranking ranking) {
-        String sql = "UPDATE Ranking SET chart_id = ?, rank_val = ? WHERE rank_id = ?"; // Updated to rank_val
-        jdbcTemplate.update(sql, ranking.getChart_id(), ranking.getRank_val(), ranking.getRank_id()); // Updated to rank_val
-        return findById(ranking.getRank_id());
+        String sql = "UPDATE rankings SET rank_val = ? WHERE track_id = ? AND chart_id = ?";
+        jdbcTemplate.update(sql, ranking.getRank_val(), ranking.getTrack_id(), ranking.getChart_id());
+        return ranking;
     }
 
-    // Delete Ranking by ID and return the deleted Ranking
     @Override
-    public Ranking deleteById(long id) {
-        Ranking ranking = findById(id);  // Get the ranking before deleting
-        String sql = "DELETE FROM Ranking WHERE rank_id = ?";
-        jdbcTemplate.update(sql, id);
-        return ranking;
+    public Ranking deleteByRank(long rankVal, long chartId) {
+        String sql = "DELETE FROM rankings WHERE rank_val = ? AND chart_id = ?";
+        jdbcTemplate.update(sql, rankVal, chartId);
+        return null;
+    }
+
+    @Override
+    public Ranking deleteByTrack(long trackId, long chartId) {
+        String sql = "DELETE FROM rankings WHERE track_id = ? AND chart_id = ?";
+        jdbcTemplate.update(sql, trackId, chartId);
+        return null;
     }
 }

@@ -1,7 +1,7 @@
 package com.echobeat.model;
 
 public class Ranking {
-    private long rank_id;
+    private long track_id;
     private long chart_id;
     private long rank_val;
 
@@ -17,12 +17,12 @@ public class Ranking {
 
 
     // Getter and Setter for rank_id
-    public long getRank_id() {
-        return rank_id;
+    public long getTrack_id() {
+        return track_id;
     }
 
-    public void setRank_id(long rank_id) {
-        this.rank_id = rank_id;
+    public void setTrack_id(long rank_id) {
+        this.track_id = rank_id;
     }
 
     // Getter and Setter for chart_id

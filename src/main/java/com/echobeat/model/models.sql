@@ -110,9 +110,10 @@ CREATE TABLE IF NOT EXISTS podcast (
 );
 
 CREATE TABLE IF NOT EXISTS Ranking (
-    rank_id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    track_id BIGINT,
     chart_id BIGINT,
-    rank_val BIGINT
+    rank_val BIGINT,
+    PRIMARY KEY (chart_id, rank_val)
 );
 
 CREATE TABLE IF NOT EXISTS SocialMedia (
