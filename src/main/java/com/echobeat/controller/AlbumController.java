@@ -98,4 +98,5 @@ public class AlbumController {
             return new ResponseEntity<>("Cannot delete album.", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
 }

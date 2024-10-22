@@ -137,3 +137,8 @@ CREATE TABLE IF NOT EXISTS liked_podcasts (
     podcast_id BIGINT NOT NULL,
     PRIMARY KEY (user_id, podcast_id)
 );
+CREATE TABLE IF NOT EXISTS created_album (
+    album_id BIGINT NOT NULL,
+    artist_id BIGINT NOT NULL,
+    PRIMARY KEY (album_id, artist_id)
+);
