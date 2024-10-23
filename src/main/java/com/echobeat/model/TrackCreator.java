@@ -1,24 +1,24 @@
 package com.echobeat.model;
 
 public class TrackCreator {
-    private Long track_id;
+    private String track_id;
     private Long artist_id;
 
     public TrackCreator(){
 
     }
 
-    public TrackCreator(Long track_id,Long artist_id){
+    public TrackCreator(String track_id,Long artist_id){
         this.track_id = track_id;
         this.artist_id = artist_id;
     }
 
-    public long getTrack_id() {
+    public String getTrack_id() {
         return track_id;
     }
 
     // Setter for track_id
-    public void setTrack_id(long track_id) {
+    public void setTrack_id(String track_id) {
         this.track_id = track_id;
     }
 

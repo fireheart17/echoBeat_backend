@@ -2,12 +2,12 @@ package com.echobeat.model;
 
 public class PlaylistTrack {
     private long playlist_id;
-    private long track_id;
+    private String track_id;
 
     public PlaylistTrack() {
     }
 
-    public PlaylistTrack(long playlist_id, long track_id) {
+    public PlaylistTrack(long playlist_id, String track_id) {
         this.playlist_id = playlist_id;
         this.track_id = track_id;
     }
@@ -23,12 +23,12 @@ public class PlaylistTrack {
     }
 
     // Getter for trackId
-    public long getTrack_id() {
+    public String getTrack_id() {
         return track_id;
     }
 
     // Setter for trackId
-    public void setTrack_id(long track_id) {
+    public void setTrack_id(String track_id) {
         this.track_id = track_id;
     }
 }

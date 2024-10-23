@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS artists (
 );
 
 CREATE TABLE IF NOT EXISTS track_creators (
-    track_id BIGINT,
+    track_id VARCHAR(255),
     artist_id BIGINT,
     PRIMARY KEY (track_id, artist_id)
 );
@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS subscriptions (
 
 CREATE TABLE IF NOT EXISTS liked_songs (
     user_id BIGINT NOT NULL,
-    track_id BIGINT NOT NULL,
+    track_id VARCHAR(255) NOT NULL,
     PRIMARY KEY (user_id, track_id)
 );
 
@@ -87,7 +87,7 @@ CREATE TABLE IF NOT EXISTS playlists (
 
 CREATE TABLE IF NOT EXISTS playlist_tracks (
     playlist_id BIGINT NOT NULL,
-    track_id BIGINT NOT NULL,
+    track_id VARCHAR(255) NOT NULL,
     PRIMARY KEY (playlist_id, track_id)
 );
 
@@ -110,7 +110,7 @@ CREATE TABLE IF NOT EXISTS podcast (
 );
 
 CREATE TABLE IF NOT EXISTS Ranking (
-    track_id BIGINT,
+    track_id VARCHAR(255),
     chart_id BIGINT,
     rank_val BIGINT,
     PRIMARY KEY (chart_id, rank_val)
