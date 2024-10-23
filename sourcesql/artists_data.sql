@@ -662,7 +662,7 @@ INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (661, 
 INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (662, 'Dofono', 'de');
 INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (663, 'Ekedi', 'Nicinha');
 INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (664, 'Chief', 'Checker');
-INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (665, 'Lo'Jo', 'nan');
+INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (665, "Lo'Jo", 'nan');
 INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (666, 'Vincent', 'S�gal');
 INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (667, 'Robert', 'Wyatt');
 INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (668, 'The', 'Mauskovic');
@@ -715,7 +715,7 @@ INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (714, 
 INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (715, 'Nkumba', 'System');
 INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (716, 'Mamani', 'Ke�ta');
 INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (717, 'Captain', 'Planet');
-INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (718, 'cacique'97', 'nan');
+INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (718, "cacique'97", 'nan');
 INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (719, 'Joshua', 'Ali');
 INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (720, 'Zem', 'Audu');
 INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (721, 'Dele', 'Ojo');
