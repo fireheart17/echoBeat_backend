@@ -1,7 +1,9 @@
 package com.echobeat.model;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Track {
 
+    @JsonProperty("track_id")
     private String track_id;
 
     private String track_name;
@@ -33,11 +35,11 @@ public class Track {
     }
 
     // Getters and Setters
-    public String getTrack_id() {
+    public String getTrackId() {
         return track_id;
     }
 
-    public void setTrack_id(String track_id) {
+    public void setTrackId(String track_id) {
         this.track_id = track_id;
     }
 

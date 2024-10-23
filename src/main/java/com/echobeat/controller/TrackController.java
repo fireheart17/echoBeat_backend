@@ -39,6 +39,7 @@ public class TrackController {
     @PostMapping("/tracks")
     public ResponseEntity<String> createTrack(@RequestBody Track track) {
         try {
+            System.err.println(track.getTrackId());
             trackRepository.save(track);
             return new ResponseEntity<>("Track was created successfully.", HttpStatus.CREATED);
         } catch (Exception e) {
