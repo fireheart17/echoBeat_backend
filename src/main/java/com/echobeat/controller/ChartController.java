@@ -1,5 +1,6 @@
 package com.echobeat.controller;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +32,17 @@ public class ChartController {
             return new ResponseEntity<>(chart, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/charts")
+    public ResponseEntity<List<Chart>> getAllCharts(){
+        List<Chart> charts = chartRepository.findAll();
+
+        if (charts.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(charts, HttpStatus.OK);
         }
     }
 

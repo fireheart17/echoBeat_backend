@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.echobeat.model.Ranking;
+import com.echobeat.model.Track;
 
 
 @Repository
@@ -23,9 +24,9 @@ public class RankingRepository implements RankingInterface {
     }
 
     @Override
-    public List<Ranking> findByChartId(long chartId) {
-        String sql = "SELECT * FROM rankings WHERE chart_id = ?";
-        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Ranking.class), chartId);
+    public List<Track> findByChartId(long chartId) {
+        String sql = "SELECT * from tracks where track_id in (SELECT track_id FROM rankings WHERE chart_id = ?)";
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Track.class), chartId);
     }
 
     @Override

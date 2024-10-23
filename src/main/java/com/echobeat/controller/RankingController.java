@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.echobeat.model.Ranking;
+import com.echobeat.model.Track;
 import com.echobeat.repository.RankingInterface;
 
 @CrossOrigin(origins = "http://localhost:8081")
@@ -38,8 +39,8 @@ public class RankingController {
     }
 
     @GetMapping("/rankings/{chartid}")
-    public ResponseEntity<List<Ranking>> getRankingByChartId(@PathVariable("chartid") long chartid) {
-        List<Ranking> rankings = rankingRepository.findByChartId(chartid);
+    public ResponseEntity<List<Track>> getRankingByChartId(@PathVariable("chartid") long chartid) {
+        List<Track> rankings = rankingRepository.findByChartId(chartid);
 
         if (rankings.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
