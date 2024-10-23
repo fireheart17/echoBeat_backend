@@ -37,7 +37,7 @@ public class PlaylistTrackController {
 
     @DeleteMapping("/{playlistId}/{trackId}")
     public ResponseEntity<String> removeTrackFromPlaylist(@PathVariable("playlistId") long playlistId,
-            @PathVariable("trackId") long trackId) {
+            @PathVariable("trackId") String trackId) {
         try {
             playlistTrackRepository.delete(playlistId, trackId);
             return new ResponseEntity<>("Track removed from playlist successfully.", HttpStatus.OK);
@@ -58,7 +58,7 @@ public class PlaylistTrackController {
     }
 
     @GetMapping("/track/{trackId}")
-    public ResponseEntity<List<PlaylistTrack>> getPlaylistsForTrack(@PathVariable("trackId") long trackId) {
+    public ResponseEntity<List<PlaylistTrack>> getPlaylistsForTrack(@PathVariable("trackId") String trackId) {
         List<PlaylistTrack> playlistTracks = playlistTrackRepository.findByTrackId(trackId);
 
         if (playlistTracks.isEmpty()) {
