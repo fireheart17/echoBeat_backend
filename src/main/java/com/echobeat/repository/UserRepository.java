@@ -39,7 +39,7 @@ public class UserRepository implements UserInterface {
 
   @Override
   public User findById(Long user_id) {
-    System.out.println(user_id);
+    // System.out.println(user_id);
     try {
       User user = jdbcTemplate.queryForObject("SELECT * FROM users WHERE user_id=?",
           BeanPropertyRowMapper.newInstance(User.class), user_id);
