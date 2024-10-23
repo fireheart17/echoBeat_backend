@@ -134,7 +134,7 @@ INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (133, 
 INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (134, 'Joy', 'Williams');
 INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (135, 'Lusaint', 'nan');
 INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (136, 'Sarah', 'Hyland');
-INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (137, 'Mother's', 'Daughter');
+INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (137, "Mother's", 'Daughter');
 INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (138, 'Beck', 'Pete');
 INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (139, 'The', 'Perishers');
 INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (140, 'Madysyn', 'nan');
@@ -201,7 +201,7 @@ INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (200, 
 INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (201, 'Eastmountainsouth', 'nan');
 INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (202, 'Peter', 'Bradley');
 INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (203, 'Suy', 'Galvez');
-INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (204, 'Howlin'', 'Wolf');
+INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (204, "Howlin'", 'Wolf');
 INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (205, 'Buddy', 'Guy');
 INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (206, 'Bonnie', 'Raitt');
 INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (207, 'Mance', 'Lipscomb');
@@ -239,7 +239,7 @@ INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (238, 
 INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (239, 'Jon', 'McLaughlin');
 INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (240, 'EJ', 'De');
 INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (241, 'Beyond', 'The');
-INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (242, 'Hannah's', 'Yard');
+INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (242, "Hannah's", 'Yard');
 INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (243, 'Vendredi', 'nan');
 INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (244, 'Son&Dad', 'nan');
 INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (245, 'Chris', 'Cresswell');
@@ -331,7 +331,7 @@ INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (330, 
 INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (331, 'Rory', 'Block');
 INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (332, 'Bobbylene', 'nan');
 INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (333, 'Joey', 'Cape');
-INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (334, 'Cannon's', 'Jug');
+INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (334, "Cannon's", 'Jug');
 INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (335, 'ELLE', 'nan');
 INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (336, 'J.J.', 'Grey');
 INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (337, 'Chrissy', 'Dave');
@@ -433,7 +433,7 @@ INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (432, 
 INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (433, 'Mulatu', 'Astatke');
 INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (434, 'TJ', 'Cream');
 INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (435, 'Ca�', 'nan');
-INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (436, 'Jor'dan', 'Armstrong');
+INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (436, "Jor'dan", 'Armstrong');
 INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (437, 'Sarah', 'T�ibo');
 INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (438, 'Sigag', 'Lauren');
 INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (439, 'Paola', 'Carla');
@@ -520,7 +520,7 @@ INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (519, 
 INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (520, 'Lafayette', 'Afro');
 INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (521, 'Femi', 'Kuti');
 INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (522, 'Michael', 'Masser');
-INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (523, 'Oscar', 'D'Le�n');
+INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (523, 'Oscar', "D'Le�n");
 INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (524, 'Marizu', 'nan');
 INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (525, 'ATR', 'nan');
 INSERT INTO artists (artist_id, artist_firstname, artist_lastname) VALUES (526, 'Orchestra', 'Baobab');
