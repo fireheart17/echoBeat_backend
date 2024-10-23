@@ -5,9 +5,9 @@ import com.echobeat.model.TrackCreator;
 
 public interface TrackCreatorInterface {
     TrackCreator save(TrackCreator trackCreator);
-    TrackCreator delete(long trackId, long artistId);
+    TrackCreator delete(String trackId, long artistId);
     void update(TrackCreator trackCreator);
-    TrackCreator findByTrackIdAndArtistId(long trackId, long artistId);
+    TrackCreator findByTrackIdAndArtistId(String trackId, long artistId);
     List<TrackCreator> findAll();
 }
 

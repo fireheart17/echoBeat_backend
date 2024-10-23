@@ -1,5 +1,6 @@
 package com.echobeat.repository;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -31,12 +32,12 @@ public class LikedSongsRepository implements LikedSongsInterface {
     }
 
     @Override
-    public int delete(long userId, long trackId) {
+    public int delete(long userId, String trackId) {
         return jdbcTemplate.update("DELETE FROM liked_songs WHERE user_id = ? AND track_id = ?", userId, trackId);
     }
 
     @Override
-    public List<LikedSongs> findByTrackId(long trackId) {
+    public List<LikedSongs> findByTrackId(String trackId) {
         return jdbcTemplate.query("SELECT * FROM liked_songs WHERE track_id = ?",
                 new BeanPropertyRowMapper<>(LikedSongs.class), trackId);
     }

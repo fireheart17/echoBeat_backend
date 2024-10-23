@@ -23,7 +23,7 @@ public class PlaylistTrackRepository implements PlaylistTrackInterface {
     }
 
     @Override
-    public int delete(long playlistId, long trackId) {
+    public int delete(long playlistId, String trackId) {
         return jdbcTemplate.update("DELETE FROM playlist_tracks WHERE playlist_id = ? AND track_id = ?", playlistId, trackId);
     }
 
@@ -34,7 +34,7 @@ public class PlaylistTrackRepository implements PlaylistTrackInterface {
     }
 
     @Override
-    public List<PlaylistTrack> findByTrackId(long trackId) {
+    public List<PlaylistTrack> findByTrackId(String trackId) {
         return jdbcTemplate.query("SELECT * FROM playlist_tracks WHERE track_id = ?",
                 new BeanPropertyRowMapper<>(PlaylistTrack.class), trackId);
     }

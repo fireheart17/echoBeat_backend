@@ -7,9 +7,9 @@ import com.echobeat.model.PlaylistTrack;
 public interface PlaylistTrackInterface {
     int save(PlaylistTrack playlistTrack);
 
-    int delete(long playlistId, long trackId);
+    int delete(long playlistId, String trackId);
 
     List<PlaylistTrack> findByPlaylistId(long playlistId);
 
-    List<PlaylistTrack> findByTrackId(long trackId);
+    List<PlaylistTrack> findByTrackId(String trackId);
 }

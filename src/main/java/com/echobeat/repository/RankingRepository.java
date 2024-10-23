@@ -1,6 +1,7 @@
 package com.echobeat.repository;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -43,7 +44,7 @@ public class RankingRepository implements RankingInterface {
     }
 
     @Override
-    public Ranking deleteByTrack(long trackId, long chartId) {
+    public Ranking deleteByTrack(String trackId, long chartId) {
         String sql = "DELETE FROM rankings WHERE track_id = ? AND chart_id = ?";
         jdbcTemplate.update(sql, trackId, chartId);
         return null;
