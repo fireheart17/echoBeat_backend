@@ -3,6 +3,8 @@ package com.echobeat.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,11 +19,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.echobeat.model.User;
 import com.echobeat.repository.UserInterface;
+import com.echobeat.util.JwtUtil;
 
 @CrossOrigin(origins = "http://localhost:8081")
 @RestController
 @RequestMapping("/api")
 public class UserController {
+
+  @Autowired
+  private JwtUtil jwtUtil;
 
   @Autowired
   UserInterface userRepository;
@@ -43,13 +49,22 @@ public class UserController {
     }
   }
 
-  @GetMapping("/users/{id}")
-  public ResponseEntity<User> getUserById(@PathVariable("id") long id) {
-    System.out.println(id);
-    User user = userRepository.findById(id);
+  @GetMapping("/users/validate")
+  public long GetUserIdFromToken(HttpServletRequest request) {
+      long user_id = jwtUtil.AuthenticateToken(request);
+      return user_id;
+  }
+  
 
+  @GetMapping("/users/{id}")
+  public ResponseEntity<String> getUserById(@PathVariable("id") long id) {
+    // System.out.println(id);
+    User user = userRepository.findById(id);
     if (user != null) {
-      return new ResponseEntity<>(user, HttpStatus.OK);
+      String token=jwtUtil.generateToken(user.getUserId());
+      // System.out.println("token : "+token);
+      return new ResponseEntity<>(token, HttpStatus.OK);
+
     } else {
       return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
