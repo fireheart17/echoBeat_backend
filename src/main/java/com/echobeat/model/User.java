@@ -1,9 +1,11 @@
 package com.echobeat.model;
 
 import java.time.LocalTime;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class User {
   private Long user_id;
+  @JsonProperty("first_name")
   private String first_name;
   private String last_name;
   private String username;
@@ -11,6 +13,7 @@ public class User {
   private LocalTime dob;
   private Integer age;
   private String gender;
+  @JsonProperty("subscription_id")
   private Long subscription_id;
   private String subscription_end_date;
 
