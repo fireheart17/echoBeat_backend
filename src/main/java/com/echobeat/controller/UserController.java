@@ -103,6 +103,20 @@ public class UserController {
       return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
+
+  @GetMapping("/user/{id}")
+    public ResponseEntity<User> findById(@PathVariable("id") long id) {
+        User user = userRepository.findById(id);
+
+        if (user != null) {
+          // String token=jwtUtil.generateToken(user.getUserId());
+          // System.out.println("token : "+token);
+          return new ResponseEntity<>(user, HttpStatus.OK);
+    
+        } else {
+          return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 }
 
 // @PutMapping("/tutorials/{id}")
