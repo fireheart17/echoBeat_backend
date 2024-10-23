@@ -25,7 +25,7 @@ public class TrackCreatorRepository implements TrackCreatorInterface {
     }
 
     @Override
-    public TrackCreator delete(long trackId, long artistId) {
+    public TrackCreator delete(String trackId, long artistId) {
         TrackCreator podcastCreator = findByTrackIdAndArtistId(trackId, artistId);
         if (podcastCreator != null) {
             String sql = "DELETE FROM track_creators WHERE track_id = ? AND artist_id = ?";
@@ -41,7 +41,7 @@ public class TrackCreatorRepository implements TrackCreatorInterface {
     }
 
     @Override
-    public TrackCreator findByTrackIdAndArtistId(long trackId, long artistId) {
+    public TrackCreator findByTrackIdAndArtistId(String trackId, long artistId) {
         String sql = "SELECT * FROM track_creators WHERE track_id = ? AND artist_id = ?";
         return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(TrackCreator.class), trackId, artistId);
     }

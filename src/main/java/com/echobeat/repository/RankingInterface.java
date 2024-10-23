@@ -9,6 +9,6 @@ public interface RankingInterface {
     List<Track> findByChartId(long chart_id);
     Ranking update(Ranking ranking);
     Ranking deleteByRank(long rank_val, long chartId);
-    Ranking deleteByTrack(long trackId, long chartId);
+    Ranking deleteByTrack(String trackId, long chartId);
 }
 

@@ -18,4 +18,6 @@ public interface UserInterface {
   User findByCredentials(String username, String password);
 
   int deleteAll();
+
+  
 }

@@ -1,6 +1,7 @@
 package com.echobeat.model;
 
 import java.time.LocalTime;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class User {

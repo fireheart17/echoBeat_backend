@@ -89,4 +89,26 @@ public class TrackController {
             return new ResponseEntity<>(tracks, HttpStatus.OK);
         }
     }
+
+    @GetMapping("/newtracks")
+    public ResponseEntity<List<Track>> getNewTracks() {
+        List<Track> tracks = trackRepository.newTracks();
+
+        if (tracks.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(tracks, HttpStatus.OK);
+        }
+    }
+
+    @GetMapping("/toppicks")
+    public ResponseEntity<List<Track>> getTopPicks() {
+        List<Track> tracks = trackRepository.topPicks();
+
+        if (tracks.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(tracks, HttpStatus.OK);
+        }
+    }
 }

@@ -50,7 +50,7 @@ public class RankingController {
     }
 
     @DeleteMapping("/rankings/{chartid}/{trackid}")
-    public ResponseEntity<String> deleteRankingByTrack(@PathVariable("chartid") long chartid, @PathVariable("trackid") long trackid) {
+    public ResponseEntity<String> deleteRankingByTrack(@PathVariable("chartid") long chartid, @PathVariable("trackid") String trackid) {
         try {
             rankingRepository.deleteByTrack(trackid, chartid);
             return new ResponseEntity<>("Ranking deleted successfully.", HttpStatus.OK);

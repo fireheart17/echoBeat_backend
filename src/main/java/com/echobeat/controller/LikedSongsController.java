@@ -40,7 +40,7 @@ public class LikedSongsController {
     }
 
     @GetMapping("/likedSongs/trackId/{trackId}")
-    public ResponseEntity<List<LikedSongs>> getLikedSongByTrackId(@PathVariable("trackId") long trackId) {
+    public ResponseEntity<List<LikedSongs>> getLikedSongByTrackId(@PathVariable("trackId") String trackId) {
         try {
             List<LikedSongs> likedSong = likedSongsRepository.findByTrackId(trackId);
 
