@@ -44,7 +44,7 @@ public class CreatedAlbumController {
         try {
             List<Album> createdAlbums = createdAlbumRepository.getAlbumsByArtistId(artist_id);
 
-            if (createdAlbums != null) {
+            if (!createdAlbums.isEmpty()) {
                 return new ResponseEntity<>(createdAlbums, HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
