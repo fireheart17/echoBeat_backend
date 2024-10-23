@@ -109,7 +109,7 @@ CREATE TABLE IF NOT EXISTS podcast (
     listen_count INT DEFAULT 0
 );
 
-CREATE TABLE IF NOT EXISTS Ranking (
+CREATE TABLE IF NOT EXISTS rankings (
     track_id VARCHAR(255),
     chart_id BIGINT,
     rank_val BIGINT,
