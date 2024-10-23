@@ -18,9 +18,9 @@ public class TrackRepository implements TrackInterface {
     // Save a new track
     @Override
     public int save(Track track) {
-        String sql = "INSERT INTO tracks (track_name, genre, lyrics, duration, country, like_count, listen_count, album_id) " +
-                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-        return jdbcTemplate.update(sql, track.getTrack_name(), track.getGenre(), track.getLyrics(),
+        String sql = "INSERT INTO tracks (track_id,track_name, genre, lyrics, duration, country, like_count, listen_count, album_id) " +
+                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?,?)";
+        return jdbcTemplate.update(sql,track.getTrackId(), track.getTrack_name(), track.getGenre(), track.getLyrics(),
                 track.getDuration(), track.getCountry(), track.getLike_count(), track.getListen_count(), 
                 track.getAlbum_id());
     }
@@ -32,7 +32,7 @@ public class TrackRepository implements TrackInterface {
                      "country = ?, like_count = ?, listen_count = ?, album_id = ? WHERE track_id = ?";
         return jdbcTemplate.update(sql, track.getTrack_name(), track.getGenre(), track.getLyrics(),
                 track.getDuration(), track.getCountry(), track.getLike_count(), track.getListen_count(), 
-                track.getAlbum_id(), track.getTrack_id());
+                track.getAlbum_id(), track.getTrackId());
     }
 
     // Delete a track by ID
