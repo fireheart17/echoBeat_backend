@@ -63,4 +63,17 @@ public class TrackRepository implements TrackInterface {
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Track.class), albumId);
     }
 
+    @Override
+    public List<Track> newTracks() {
+        String sql = "SELECT * FROM tracks LIMIT 10";
+        
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Track.class));
+    }
+
+    @Override
+    public List<Track> topPicks() {
+        String sql = "SELECT * FROM tracks ORDER BY like_count DESC LIMIT 10";
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Track.class));
+    }
+
 }
