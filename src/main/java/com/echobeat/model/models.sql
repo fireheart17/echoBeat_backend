@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS users (
     last_name VARCHAR(255),
     username VARCHAR(255),
     password VARCHAR(255),
-    dob TIME,
+    dob DATE,
     age INT,
     gender VARCHAR(10),
     subscription_id BIGINT,

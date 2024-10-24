@@ -1,6 +1,6 @@
 package com.echobeat.model;
 
-import java.time.LocalTime;
+import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -11,7 +11,7 @@ public class User {
   private String last_name;
   private String username;
   private String password;
-  private LocalTime dob;
+  private LocalDate dob;
   private Integer age;
   private String gender;
   @JsonProperty("subscription_id")
@@ -23,7 +23,7 @@ public class User {
   }
 
   public User(String first_name, String last_name, String username, String password,
-      LocalTime dob, Integer age, String gender, Long subscription_id, String subscription_end_date) {
+  LocalDate dob, Integer age, String gender, Long subscription_id, String subscription_end_date) {
     this.first_name = first_name;
     this.last_name = last_name;
     this.username = username;
@@ -77,11 +77,11 @@ public class User {
     this.password = password;
   }
 
-  public LocalTime getDob() {
+  public LocalDate getDob() {
     return dob;
   }
 
-  public void setDob(LocalTime dob) {
+  public void setDob(LocalDate dob) {
     this.dob = dob;
   }
 
