@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.echobeat.model.LikedSongs;
+import com.echobeat.model.Track;
 import com.echobeat.repository.LikedSongsRepository;
 
 @CrossOrigin(origins = "http://localhost:8081") // Adjust origin as needed
@@ -25,9 +26,9 @@ public class LikedSongsController {
     LikedSongsRepository likedSongsRepository;
 
     @GetMapping("/likedSongs/userId/{userId}")
-    public ResponseEntity<List<LikedSongs>> getLikedSongsByUserId(@PathVariable("userId") long userId) {
+    public ResponseEntity<List<Track>> getLikedSongsByUserId(@PathVariable("userId") long userId) {
         try {
-            List<LikedSongs> likedSongs = likedSongsRepository.findByUserId(userId);
+            List<Track> likedSongs = likedSongsRepository.findByUserId(userId);
 
             if (likedSongs.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);

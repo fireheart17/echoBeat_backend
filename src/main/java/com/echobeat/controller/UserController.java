@@ -89,11 +89,12 @@ public class UserController {
   }
 
   @PostMapping("/login")
-  public ResponseEntity<User> handleLogin(@RequestBody User user) {
+  public ResponseEntity<String> handleLogin(@RequestBody User user) {
     try {
       User login_user = userRepository.findByCredentials(user.getUsername(), user.getPassword());
       if (login_user != null) {
-        return new ResponseEntity<>(login_user, HttpStatus.OK);
+        String token = jwtUtil.generateToken(login_user.getUserId());
+        return new ResponseEntity<>(token, HttpStatus.OK);
 
       } else {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);

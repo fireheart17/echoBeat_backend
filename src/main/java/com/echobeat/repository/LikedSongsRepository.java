@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.echobeat.model.LikedSongs;
+import com.echobeat.model.Track;
 
 @Repository
 public class LikedSongsRepository implements LikedSongsInterface {
@@ -43,8 +44,8 @@ public class LikedSongsRepository implements LikedSongsInterface {
     }
 
     @Override
-    public List<LikedSongs> findByUserId(long userId) {
-        return jdbcTemplate.query("SELECT * FROM liked_songs WHERE user_id = ?",
-                new BeanPropertyRowMapper<>(LikedSongs.class), userId);
+    public List<Track> findByUserId(long userId) {
+        return jdbcTemplate.query("SELECT * from tracks where track_id in (SELECT track_id FROM liked_songs WHERE user_id = ?)",
+                new BeanPropertyRowMapper<>(Track.class), userId);
     }
 }

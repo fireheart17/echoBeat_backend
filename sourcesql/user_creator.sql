@@ -1,0 +1,4 @@
+INSERT INTO users (user_id, first_name, last_name, username, password, dob, age, gender, subscription_id, subscription_end_id) VALUES (1, 'Shivansh', 'Kandpal', 'shivansh.kandpal', 'password', '2013-04-01', 11, 'M', 1, 1);
+INSERT INTO users (user_id, first_name, last_name, username, password, dob, age, gender, subscription_id, subscription_end_id) VALUES (2, 'Dev', 'Gupta', 'dev.gupta', 'password', '2013-05-02', 11, 'M', 2, 2);
+INSERT INTO users (user_id, first_name, last_name, username, password, dob, age, gender, subscription_id, subscription_end_id) VALUES (3, 'Abhigyan', 'Pandey', 'abhigyan.pandey', 'password', '2013-06-03', 11, 'M', 3, 3);
+INSERT INTO users (user_id, first_name, last_name, username, password, dob, age, gender, subscription_id, subscription_end_id) VALUES (4, 'Piyush', 'Goyal', 'piyush.goyal', 'password', '2013-07-04', 11, 'M', 4, 4);
