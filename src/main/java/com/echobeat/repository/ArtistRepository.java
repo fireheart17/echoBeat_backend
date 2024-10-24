@@ -1,13 +1,17 @@
 package com.echobeat.repository;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import com.echobeat.model.Album;
 import com.echobeat.model.Artist;
-
+import com.echobeat.model.Track;
+null
 @Repository
 public class ArtistRepository implements ArtistInterface {
 
@@ -65,5 +69,17 @@ public class ArtistRepository implements ArtistInterface {
         String sql = "SELECT * FROM artists WHERE artist_id = ?";
         RowMapper<Artist> rowMapper = BeanPropertyRowMapper.newInstance(Artist.class);
         return jdbcTemplate.queryForObject(sql, rowMapper, artistId);
+    }
+    
+    @Override
+    public List<Track>getTracksByArtistId(long id){
+        String sql = "SELECT * from tracks where track_id in (SELECT track_id FROM track_creators WHERE artist_id=?)";
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Track.class), id);
+    }
+
+    @Override
+    public List<Album>getAlbumsByArtistId(long id){
+        String sql = "SELECT * from albums where album_id in (SELECT album_id FROM created_album WHERE artist_id=?)";
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Album.class),id);
     }
 }
