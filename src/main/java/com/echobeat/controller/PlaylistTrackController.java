@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.echobeat.model.PlaylistTrack;
 import com.echobeat.repository.PlaylistTrackRepository;
+import com.echobeat.model.Track;
 
 @CrossOrigin(origins = "http://localhost:8081") // Adjust origin as needed
 @RestController
@@ -47,8 +48,8 @@ public class PlaylistTrackController {
     }
 
     @GetMapping("/playlist/{playlistId}")
-    public ResponseEntity<List<PlaylistTrack>> getPlaylistTracks(@PathVariable("playlistId") long playlistId) {
-        List<PlaylistTrack> playlistTracks = playlistTrackRepository.findByPlaylistId(playlistId);
+    public ResponseEntity<List<Track>> getPlaylistTracks(@PathVariable("playlistId") long playlistId) {
+        List<Track> playlistTracks = playlistTrackRepository.findByPlaylistId(playlistId);
 
         if (playlistTracks.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

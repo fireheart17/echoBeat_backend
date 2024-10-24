@@ -7,6 +7,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.echobeat.model.PlaylistTrack;
+import com.echobeat.model.Track;
+
 @Repository
 public class PlaylistTrackRepository implements PlaylistTrackInterface {
 
@@ -28,9 +30,9 @@ public class PlaylistTrackRepository implements PlaylistTrackInterface {
     }
 
     @Override
-    public List<PlaylistTrack> findByPlaylistId(long playlistId) {
-        return jdbcTemplate.query("SELECT * FROM playlist_tracks WHERE playlist_id = ?",
-                new BeanPropertyRowMapper<>(PlaylistTrack.class), playlistId);
+    public List<Track> findByPlaylistId(long playlistId) {
+        return jdbcTemplate.query("SELECT * from tracks where track_id in (SELECT track_id FROM playlist_tracks WHERE playlist_id = ?)",
+                new BeanPropertyRowMapper<>(Track.class), playlistId);
     }
 
     @Override
