@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS users (--
+CREATE TABLE IF NOT EXISTS users (
     user_id BIGINT PRIMARY KEY AUTO_INCREMENT,
     first_name VARCHAR(255),
     last_name VARCHAR(255),
@@ -10,10 +10,11 @@ CREATE TABLE IF NOT EXISTS users (--
     subscription_id BIGINT,
     subscription_end_date VARCHAR(255),
     FOREIGN KEY (subscription_id) REFERENCES subscriptions(subscription_id)
+    ON DELETE SET NULL
+    ON UPDATE CASCADE
 );
 
-
-CREATE TABLE IF NOT EXISTS artists (--
+CREATE TABLE IF NOT EXISTS artists (
     artist_id BIGINT PRIMARY KEY AUTO_INCREMENT,
     first_name VARCHAR(255),
     last_name VARCHAR(255),
@@ -24,23 +25,26 @@ CREATE TABLE IF NOT EXISTS artists (--
     follower_count INT DEFAULT 0
 );
 
-CREATE TABLE IF NOT EXISTS track_creators (--
+CREATE TABLE IF NOT EXISTS track_creators (
     track_id VARCHAR(255),
     artist_id BIGINT,
     PRIMARY KEY (track_id, artist_id),
-    FOREIGN KEY (artist_id) REFERENCES artists(artist_id),
     FOREIGN KEY (track_id) REFERENCES tracks(track_id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+    FOREIGN KEY (artist_id) REFERENCES artists(artist_id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS albums (--
+CREATE TABLE IF NOT EXISTS albums (
     album_id BIGINT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255),
     genre VARCHAR(255),
     release_date TIME
-    
 );
 
-CREATE TABLE IF NOT EXISTS tracks (--
+CREATE TABLE IF NOT EXISTS tracks (
     track_id VARCHAR(255) PRIMARY KEY,
     track_name VARCHAR(255),
     genre VARCHAR(255),
@@ -51,58 +55,76 @@ CREATE TABLE IF NOT EXISTS tracks (--
     listen_count INT DEFAULT 0,
     album_id BIGINT DEFAULT 0,
     FOREIGN KEY (album_id) REFERENCES albums(album_id)
+    ON DELETE SET NULL
+    ON UPDATE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS charts (--
+CREATE TABLE IF NOT EXISTS charts (
     chart_id BIGINT AUTO_INCREMENT PRIMARY KEY,
     chart_type VARCHAR(255)
 );
 
-CREATE TABLE IF NOT EXISTS liked_playlists (--
+CREATE TABLE IF NOT EXISTS liked_playlists (
     user_id BIGINT,
     playlist_id BIGINT,
     PRIMARY KEY (user_id, playlist_id),
-    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
     FOREIGN KEY (playlist_id) REFERENCES playlists(playlist_id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS subscriptions (--
+CREATE TABLE IF NOT EXISTS subscriptions (
     subscription_id BIGINT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255),
     price INT,
     duration INT
 );
 
-CREATE TABLE IF NOT EXISTS liked_songs (--
+CREATE TABLE IF NOT EXISTS liked_songs (
     user_id BIGINT NOT NULL,
     track_id VARCHAR(255) NOT NULL,
     PRIMARY KEY (user_id, track_id),
-    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
     FOREIGN KEY (track_id) REFERENCES tracks(track_id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS perks (--
+CREATE TABLE IF NOT EXISTS perks (
     subscription_id BIGINT NOT NULL,
     description VARCHAR(255),
     PRIMARY KEY (subscription_id),
     FOREIGN KEY (subscription_id) REFERENCES subscriptions(subscription_id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS playlists (--
+CREATE TABLE IF NOT EXISTS playlists (
     playlist_id BIGINT NOT NULL AUTO_INCREMENT,
     title VARCHAR(255) ,
     duration INT ,
     user_id BIGINT ,
     PRIMARY KEY (playlist_id),
     FOREIGN KEY (user_id) REFERENCES users(user_id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS playlist_tracks (--
+CREATE TABLE IF NOT EXISTS playlist_tracks (
     playlist_id BIGINT NOT NULL,
     track_id VARCHAR(255) NOT NULL,
     PRIMARY KEY (playlist_id, track_id),
-    FOREIGN KEY (playlist_id) REFERENCES playlists(playlist_id),
+    FOREIGN KEY (playlist_id) REFERENCES playlists(playlist_id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
     FOREIGN KEY (track_id) REFERENCES tracks(track_id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
 );
 
 
@@ -110,8 +132,12 @@ CREATE TABLE IF NOT EXISTS podcast_creators (
     podcast_id BIGINT,
     artist_id BIGINT,
     PRIMARY KEY (podcast_id, artist_id),
-    FOREIGN KEY (podcast_id) REFERENCES podcast(podcast_id),
+    FOREIGN KEY (podcast_id) REFERENCES podcast(podcast_id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
     FOREIGN KEY (artist_id) REFERENCES artists(artist_id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS podcast (
@@ -130,8 +156,12 @@ CREATE TABLE IF NOT EXISTS rankings (
     chart_id BIGINT,
     rank_val BIGINT,
     PRIMARY KEY (chart_id, rank_val),
-    FOREIGN KEY (track_id) REFERENCES tracks(track_id),
+    FOREIGN KEY (track_id) REFERENCES tracks(track_id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
     FOREIGN KEY (chart_id) REFERENCES charts(chart_id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS SocialMedia (
@@ -140,34 +170,51 @@ CREATE TABLE IF NOT EXISTS SocialMedia (
     socialmediahandle VARCHAR(255),
     PRIMARY KEY (artist_id, socialmediatype),
     FOREIGN KEY (artist_id) REFERENCES artists(artist_id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS followers (
     artist_id BIGINT NOT NULL,
     user_id BIGINT NOT NULL,
     PRIMARY KEY (artist_id, user_id),
-    FOREIGN KEY (artist_id) REFERENCES artists(artist_id),
+    FOREIGN KEY (artist_id) REFERENCES artists(artist_id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
     FOREIGN KEY (user_id) REFERENCES users(user_id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
 );
-
-CREATE TABLE IF NOT EXISTS liked_albums (--
+CREATE TABLE IF NOT EXISTS liked_albums (
     user_id BIGINT NOT NULL,
     album_id BIGINT NOT NULL,
     PRIMARY KEY (user_id, album_id),
-    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
     FOREIGN KEY (album_id) REFERENCES albums(album_id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
 );
-CREATE TABLE IF NOT EXISTS liked_podcasts (--
+CREATE TABLE IF NOT EXISTS liked_podcasts (
     user_id BIGINT NOT NULL,
     podcast_id BIGINT NOT NULL,
     PRIMARY KEY (user_id, podcast_id),
-    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
     FOREIGN KEY (podcast_id) REFERENCES podcast(podcast_id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
 );
 CREATE TABLE IF NOT EXISTS created_album (
     album_id BIGINT NOT NULL,
     artist_id BIGINT NOT NULL,
     PRIMARY KEY (album_id, artist_id),
-    FOREIGN KEY (album_id) REFERENCES albums(album_id),
+    FOREIGN KEY (album_id) REFERENCES albums(album_id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
     FOREIGN KEY (artist_id) REFERENCES artists(artist_id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
 );
