@@ -1,0 +1,9 @@
+INSERT INTO user_liked_albums (user_id, album_id) VALUES (1, 2781);
+INSERT INTO user_liked_albums (user_id, album_id) VALUES (2, 1953);
+INSERT INTO user_liked_albums (user_id, album_id) VALUES (2, 1571);
+INSERT INTO user_liked_albums (user_id, album_id) VALUES (2, 3783);
+INSERT INTO user_liked_albums (user_id, album_id) VALUES (3, 4948);
+INSERT INTO user_liked_albums (user_id, album_id) VALUES (3, 2786);
+INSERT INTO user_liked_albums (user_id, album_id) VALUES (3, 120);
+INSERT INTO user_liked_albums (user_id, album_id) VALUES (4, 4030);
+INSERT INTO user_liked_albums (user_id, album_id) VALUES (4, 4791);

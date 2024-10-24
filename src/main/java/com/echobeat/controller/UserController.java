@@ -70,6 +70,19 @@ public class UserController {
     }
   }
 
+  @GetMapping("/users/profile")
+  public ResponseEntity<User> getUserProfile(HttpServletRequest request) {
+    // System.out.println(id);
+    long id = jwtUtil.AuthenticateToken(request);
+    User user = userRepository.findById(id);
+    if (user != null) {
+      return new ResponseEntity<>(user, HttpStatus.OK);
+
+    } else {
+      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+  }
+
   @PostMapping("/users")
   public ResponseEntity<String> createUser(@RequestBody User user) {
     try {
