@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.echobeat.model.Album;
 import com.echobeat.model.Artist;
 import com.echobeat.model.Track;
+
 @Repository
 public class ArtistRepository implements ArtistInterface {
 
