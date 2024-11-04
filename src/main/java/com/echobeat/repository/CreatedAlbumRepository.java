@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.echobeat.model.Album;
+import com.echobeat.model.Artist;
 import com.echobeat.model.CreatedAlbum;
 
 @Repository
@@ -37,5 +38,11 @@ public class CreatedAlbumRepository implements CreatedAlbumInterface {
     public List<Album> getAlbumsByArtistId(long artist_id) {
         String sql = "SELECT DISTINCT album_id FROM created_album WHERE artist_id=artist_id";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Album.class));
+    }
+
+    @Override
+    public List<Artist> getArtistsByAlbumId(long album_id) {
+        String sql = "SELECT * FROM artists WHERE artist_id IN (SELECT artist_id FROM created_album WHERE album_id = ?)";
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Artist.class), album_id);
     }
 }
