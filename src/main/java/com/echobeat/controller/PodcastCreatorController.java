@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.echobeat.model.Artist;
 import com.echobeat.model.PodcastCreator;
 import com.echobeat.repository.PodcastCreatorInterface;
 
@@ -45,7 +46,7 @@ public class PodcastCreatorController {
 
     @GetMapping("/podcast-creators/{trackId}/{artistId}")
     public ResponseEntity<PodcastCreator> getPodcastCreatorById(@PathVariable("podcastId") long podcastId,
-                                                                 @PathVariable("artistId") long artistId) {
+            @PathVariable("artistId") long artistId) {
         PodcastCreator podcastCreator = podcastCreatorRepository.findByPodcastIdAndArtistId(podcastId, artistId);
 
         if (podcastCreator != null) {
@@ -67,8 +68,8 @@ public class PodcastCreatorController {
 
     @PutMapping("/podcast-creators/{podcastId}/{artistId}")
     public ResponseEntity<String> updatePodcastCreator(@PathVariable("podcastId") long podcastId,
-                                                       @PathVariable("artistId") long artistId,
-                                                       @RequestBody PodcastCreator podcastCreator) {
+            @PathVariable("artistId") long artistId,
+            @RequestBody PodcastCreator podcastCreator) {
         podcastCreator.setPodcast_id(podcastId);
         podcastCreator.setArtist_id(artistId);
 
@@ -81,19 +82,30 @@ public class PodcastCreatorController {
     }
 
     @DeleteMapping("/podcast-creators/{podcastId}/{artistId}")
-public ResponseEntity<String> deletePodcastCreator(@PathVariable("podcastId") long podcastId,
-                                                   @PathVariable("artistId") long artistId) {
-    try {
-        PodcastCreator deletedPodcastCreator = podcastCreatorRepository.delete(podcastId, artistId);
-        if (deletedPodcastCreator != null) {
-            return new ResponseEntity<>("PodcastCreator was deleted successfully.", HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>("Cannot find PodcastCreator with podcastId=" + podcastId + " and artistId=" + artistId, HttpStatus.NOT_FOUND);
+    public ResponseEntity<String> deletePodcastCreator(@PathVariable("podcastId") long podcastId,
+            @PathVariable("artistId") long artistId) {
+        try {
+            PodcastCreator deletedPodcastCreator = podcastCreatorRepository.delete(podcastId, artistId);
+            if (deletedPodcastCreator != null) {
+                return new ResponseEntity<>("PodcastCreator was deleted successfully.", HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>("Cannot find PodcastCreator with podcastId=" + podcastId + " and artistId=" + artistId, HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>("Cannot delete PodcastCreator.", HttpStatus.INTERNAL_SERVER_ERROR);
         }
-    } catch (Exception e) {
-        return new ResponseEntity<>("Cannot delete PodcastCreator.", HttpStatus.INTERNAL_SERVER_ERROR);
     }
-}
+
+
+    @GetMapping("/getPodcastArtists/{podcastId}")
+    public ResponseEntity<List<Artist>> getArtistsByPodcastId(@PathVariable("podcastId") long podcastId) {
+        List<Artist> artists= podcastCreatorRepository.getArtistsByPodcastId(podcastId);
+
+        if (artists.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(artists, HttpStatus.OK);
+        }
+    }
 
 }
-
