@@ -1,6 +1,12 @@
 package com.echobeat.repository;
 
 import com.echobeat.model.LikedPodcasts;
+import com.echobeat.model.Playlist;
+import com.echobeat.model.Podcast;
+
+import java.util.List;
+
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -26,5 +32,11 @@ public class LikedPodcastsRepository implements LikedPodcastsInterface {
     public int removeLikedPodcast(long user_id, long podcast_id) {
         String sql = "DELETE FROM liked_podcasts WHERE user_id = ? AND podcast_id = ?";
         return jdbcTemplate.update(sql, user_id, podcast_id);
+    }
+
+    @Override
+    public List<Podcast> findLikedPodcastsByUserId(long userId) {
+        return jdbcTemplate.query("SELECT * from podcast where podcast_id in (SELECT podcast_id FROM liked_podcasts WHERE user_id = ?)",
+                new BeanPropertyRowMapper<>(Podcast.class), userId);
     }
 }
