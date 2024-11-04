@@ -1,11 +1,15 @@
 package com.echobeat.repository;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.echobeat.model.LikedPlaylists;
+import com.echobeat.model.Track;
+import com.echobeat.model.Playlist;
 
 @Repository
 public class LikedPlaylistsRepository implements LikedPlaylistsInterface {
@@ -35,5 +39,11 @@ public class LikedPlaylistsRepository implements LikedPlaylistsInterface {
     public boolean findLikedPlaylist(long userId, long playlistId) {
         String sql = "SELECT * FROM liked_playlists WHERE user_id = ? AND playlist_id = ?";
         return (jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(LikedPlaylists.class), userId, playlistId))!=null;
+    }
+
+    @Override
+    public List<Playlist> findLikedPlaylistsByUserId(long userId) {
+        return jdbcTemplate.query("SELECT * from playlists where playlist_id in (SELECT playlist_id FROM liked_playlists WHERE user_id = ?)",
+                new BeanPropertyRowMapper<>(Playlist.class), userId);
     }
 }

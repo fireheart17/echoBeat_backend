@@ -50,7 +50,7 @@ public class PlaylistController {
     }
   }
 
-  @PostMapping("")
+  @PostMapping("/add")
   public ResponseEntity<String> savePlaylist(@RequestBody Playlist playlist) {
     try {
       playlistRepository.save(playlist);
