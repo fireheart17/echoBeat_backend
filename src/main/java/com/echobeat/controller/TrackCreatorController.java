@@ -62,6 +62,7 @@ public class TrackCreatorController {
             TrackCreator createdTrackCreator = trackCreatorRepository.save(trackCreator);
             return new ResponseEntity<>(createdTrackCreator, HttpStatus.CREATED);
         } catch (Exception e) {
+            System.out.println(e.toString());
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

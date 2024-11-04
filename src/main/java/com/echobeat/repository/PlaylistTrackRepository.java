@@ -40,4 +40,5 @@ public class PlaylistTrackRepository implements PlaylistTrackInterface {
         return jdbcTemplate.query("SELECT * FROM playlist_tracks WHERE track_id = ?",
                 new BeanPropertyRowMapper<>(PlaylistTrack.class), trackId);
     }
+    
 }

@@ -25,6 +25,9 @@ public class PlaylistTrackController {
 
     @Autowired
     private PlaylistTrackRepository playlistTrackRepository;
+    
+    @Autowired
+    private TrackRepository trackRepository;
 
     @PostMapping("")
     public ResponseEntity<String> addTrackToPlaylist(@RequestBody PlaylistTrack playlistTrack) {
