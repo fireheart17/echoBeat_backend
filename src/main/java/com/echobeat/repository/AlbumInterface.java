@@ -1,5 +1,5 @@
 package com.echobeat.repository;
-
+import java.util.*;
 import com.echobeat.model.Album;
 
 public interface AlbumInterface {
@@ -11,4 +11,7 @@ public interface AlbumInterface {
     int deleteById(long album_id);
 
     Album findById(long album_id);
+
+    List<Album> search(String keyword);
+
 }

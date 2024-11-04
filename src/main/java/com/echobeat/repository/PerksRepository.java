@@ -1,5 +1,8 @@
 package com.echobeat.repository;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -35,8 +38,13 @@ public class PerksRepository implements PerksInterface {
     }
 
     @Override
-    public Perks findBySubscriptionId(long subscriptionId) {
-        return jdbcTemplate.queryForObject("SELECT * FROM perks WHERE subscription_id = ?",
-                new BeanPropertyRowMapper<>(Perks.class), subscriptionId);
+    public List<String> findBySubscriptionId(long subscriptionId) {
+        List<Perks> result=jdbcTemplate.query("SELECT * FROM perks WHERE subscription_id = ?",
+        new BeanPropertyRowMapper<>(Perks.class), subscriptionId);
+        List<String> ls=new ArrayList<>();
+        for (Perks item : result) {
+            ls.add(item.getDescription());
+        }
+        return ls;
     }
 }

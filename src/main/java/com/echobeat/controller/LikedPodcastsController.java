@@ -1,11 +1,15 @@
 package com.echobeat.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.echobeat.model.LikedPodcasts;
+import com.echobeat.model.Track;
+import com.echobeat.model.Podcast;
 import com.echobeat.repository.LikedPodcastsInterface;
 
 @CrossOrigin(origins = "http://localhost:8081")
@@ -35,6 +39,21 @@ public class LikedPodcastsController {
             return new ResponseEntity<>("Podcast unliked successfully.", HttpStatus.OK);
         } else {
             return new ResponseEntity<>("Liked podcast not found.", HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/likedPodcasts/userId/{userId}")
+    public ResponseEntity<List<Podcast>> getLikedPodcastsByUserId(@PathVariable("userId") long userId) {
+        try {
+            List<Podcast> likedPodcasts = likedPodcastsRepository.findLikedPodcastsByUserId(userId);
+
+            if (likedPodcasts.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+
+            return new ResponseEntity<>(likedPodcasts, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

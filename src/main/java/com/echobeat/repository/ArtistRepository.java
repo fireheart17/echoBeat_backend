@@ -21,10 +21,11 @@ public class ArtistRepository implements ArtistInterface {
     @Override
     public int saveArtist(Artist artist) {
         System.out.println(artist.getFirst_name());
-        String sql = "INSERT INTO artists (first_name, last_name, password, global_rank, country, about, follower_count) "
+        String sql = "INSERT INTO artists (artist_name, first_name, last_name, password, global_rank, country, about, follower_count) "
                 +
-                "VALUES (?, ?, ?, ?, ?, ?, ?)";
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         return jdbcTemplate.update(sql,
+                artist.getArtist_name(),
                 artist.getFirst_name(),
                 artist.getLast_name(),
                 artist.getPassword(),
@@ -36,10 +37,11 @@ public class ArtistRepository implements ArtistInterface {
 
     @Override
     public Artist updateArtist(Artist artist) {
-        String sql = "UPDATE artists SET first_name = ?, last_name = ?, password = ?, global_rank = ?, country = ?, about = ?, follower_count = ? "
+        String sql = "UPDATE artists SET artist_name = ?, first_name = ?, last_name = ?, password = ?, global_rank = ?, country = ?, about = ?, follower_count = ? "
                 +
                 "WHERE artist_id = ?";
         jdbcTemplate.update(sql,
+                artist.getArtist_name(),
                 artist.getFirst_name(),
                 artist.getLast_name(),
                 artist.getPassword(),
@@ -83,4 +85,10 @@ public class ArtistRepository implements ArtistInterface {
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Album.class),id);
     }
 
+
+    @Override
+    public List<Artist>searchArtist(String keyword){
+        String sql = "SELECT * FROM artists WHERE artist_name LIKE ?";
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Artist.class), keyword + "%");
+    }
 }

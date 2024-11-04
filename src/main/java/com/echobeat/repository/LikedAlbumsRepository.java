@@ -1,6 +1,12 @@
 package com.echobeat.repository;
 
 import com.echobeat.model.LikedAlbums;
+import com.echobeat.model.Track;
+import com.echobeat.model.Album;
+
+import java.util.List;
+
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 // import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -27,5 +33,11 @@ public class LikedAlbumsRepository implements LikedAlbumsInterface {
     public int removeLikedAlbum(long user_id, long album_id) {
         String sql = "DELETE FROM liked_albums WHERE user_id = ? AND album_id = ?";
         return jdbcTemplate.update(sql, user_id, album_id);
+    }
+
+    @Override
+    public List<Album> LikedAlbumsByUserId(long userId) {
+        return jdbcTemplate.query("SELECT * from albums where album_id in (SELECT album_id FROM liked_albums WHERE user_id = ?)",
+                new BeanPropertyRowMapper<>(Album.class), userId);
     }
 }

@@ -44,6 +44,7 @@ public class ArtistController {
     public ResponseEntity<String> createArtist(@RequestBody Artist artist) {
         try {
             artistRepository.saveArtist(new Artist(
+                artist.getArtist_name(),
                 artist.getFirst_name(),
                 artist.getLast_name(),
                 artist.getPassword(),
@@ -64,6 +65,7 @@ public class ArtistController {
         Artist existingArtist = artistRepository.findArtistById(id);
 
         if (existingArtist != null) {
+            existingArtist.setArtist_name(artist.getArtist_name());
             existingArtist.setFirst_name(artist.getFirst_name());
             existingArtist.setLast_name(artist.getLast_name());
             existingArtist.setPassword(artist.getPassword());
@@ -107,6 +109,21 @@ public class ArtistController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<>(albums, HttpStatus.OK);
+        }
+    }
+
+    @GetMapping("/artists/search/{keyword}")
+    public ResponseEntity<List<Artist>> searchArtist(@PathVariable("keyword") String keyword) {
+        try {
+            List<Artist> artists = artistRepository.searchArtist(keyword);
+
+            if (artists.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+
+            return new ResponseEntity<>(artists, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

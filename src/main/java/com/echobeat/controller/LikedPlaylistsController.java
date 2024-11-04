@@ -1,5 +1,7 @@
 package com.echobeat.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.echobeat.model.LikedPlaylists;
+import com.echobeat.model.Track;
+import com.echobeat.model.Playlist;
 import com.echobeat.repository.LikedPlaylistsInterface;
 
 @CrossOrigin(origins = "http://localhost:8081")
@@ -71,4 +75,20 @@ public class LikedPlaylistsController {
             return new ResponseEntity<>("Cannot find Liked Playlist with userId=" + userId + " and playlistId=" + playlistId, HttpStatus.NOT_FOUND);
         }
     }
+
+    @GetMapping("/likedPlaylists/userId/{userId}")
+    public ResponseEntity<List<Playlist>> getLikedPlaylistsByUserId(@PathVariable("userId") long userId) {
+        try {
+            List<Playlist> likedPlaylists = likedPlaylistRepository.findLikedPlaylistsByUserId(userId);
+
+            if (likedPlaylists.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+
+            return new ResponseEntity<>(likedPlaylists, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }

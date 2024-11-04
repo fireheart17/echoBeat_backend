@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS users (
 
 CREATE TABLE IF NOT EXISTS artists (
     artist_id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    artist_name VARCHAR(255),
     first_name VARCHAR(255),
     last_name VARCHAR(255),
     password VARCHAR(255),
@@ -98,7 +99,7 @@ CREATE TABLE IF NOT EXISTS liked_songs (
 CREATE TABLE IF NOT EXISTS perks (
     subscription_id BIGINT NOT NULL,
     description VARCHAR(255),
-    PRIMARY KEY (subscription_id),
+    PRIMARY KEY (subscription_id,description),
     FOREIGN KEY (subscription_id) REFERENCES subscriptions(subscription_id)
     ON DELETE CASCADE
     ON UPDATE CASCADE
