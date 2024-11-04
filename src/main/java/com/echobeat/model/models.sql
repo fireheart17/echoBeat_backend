@@ -98,7 +98,7 @@ CREATE TABLE IF NOT EXISTS liked_songs (
 CREATE TABLE IF NOT EXISTS perks (
     subscription_id BIGINT NOT NULL,
     description VARCHAR(255),
-    PRIMARY KEY (subscription_id),
+    PRIMARY KEY (subscription_id,description),
     FOREIGN KEY (subscription_id) REFERENCES subscriptions(subscription_id)
     ON DELETE CASCADE
     ON UPDATE CASCADE

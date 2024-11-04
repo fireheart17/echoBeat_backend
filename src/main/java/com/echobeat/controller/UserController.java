@@ -67,7 +67,7 @@ public class UserController {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-    }
+    } 
 
     @GetMapping("/users/profile")
     public ResponseEntity<User> getUserProfile(HttpServletRequest request) {

@@ -1,5 +1,7 @@
 package com.echobeat.repository;
 
+import java.util.List;
+
 import com.echobeat.model.Perks;
 
 public interface PerksInterface {
@@ -9,5 +11,5 @@ public interface PerksInterface {
 
     int delete(long subscriptionId);
 
-    Perks findBySubscriptionId(long subscriptionId);
+    List<String> findBySubscriptionId(long subscriptionId);
 }
