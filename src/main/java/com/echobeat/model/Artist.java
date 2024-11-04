@@ -3,6 +3,7 @@ package com.echobeat.model;
 public class Artist {
     private long artist_id;
 
+    private String artist_name;
     private String first_name;
     private String last_name;
     private String password;
@@ -16,8 +17,9 @@ public class Artist {
     }
 
     // Constructor to set values of all variables
-    public Artist(String first_name, String last_name, String password, String global_rank,
+    public Artist(String artist_name, String first_name, String last_name, String password, String global_rank,
             String country, String about, int follower_count) {
+        this.artist_name = artist_name;
         this.first_name = first_name;
         this.last_name = last_name;
         this.password = password;
@@ -28,6 +30,13 @@ public class Artist {
     }
 
     // Getter and Setter methods
+    public String getArtist_name() {
+        return artist_name;
+    }
+
+    public void setArtist_name(String artist_name) {
+        this.artist_name = artist_name;
+    }
 
     public long getArtist_id() {
         return artist_id;

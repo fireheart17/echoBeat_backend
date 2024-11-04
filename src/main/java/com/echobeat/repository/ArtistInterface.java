@@ -17,4 +17,7 @@ public interface ArtistInterface {
     List<Track>getTracksByArtistId(long id);
 
     List<Album>getAlbumsByArtistId(long id);
+
+    List<Artist>searchArtist(String keyword);
+
 }

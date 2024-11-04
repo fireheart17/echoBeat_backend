@@ -1,5 +1,5 @@
 package com.echobeat.controller;
-
+import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -96,6 +96,21 @@ public class AlbumController {
             return new ResponseEntity<>("Album was deleted successfully.", HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>("Cannot delete album.", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/albums/search/{keyword}")
+    public ResponseEntity<List<Album>> searchAlbum(@PathVariable("keyword") String keyword) {
+        try {
+            List<Album> albums = albumRepository.search(keyword);
+
+            if (albums.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+
+            return new ResponseEntity<>(albums, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

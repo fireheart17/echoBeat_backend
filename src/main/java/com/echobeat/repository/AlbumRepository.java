@@ -1,5 +1,6 @@
 package com.echobeat.repository;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -36,5 +37,11 @@ public class AlbumRepository implements AlbumInterface {
         String sql = "SELECT * FROM albums WHERE album_id = ?";
         Album album = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Album.class), album_id);
         return album;
+    }
+
+    @Override
+    public List<Album> search(String keyword) {
+        String sql = "SELECT * FROM albums WHERE title LIKE ?";
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Album.class), keyword + "%");
     }
 }

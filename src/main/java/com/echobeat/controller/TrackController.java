@@ -74,7 +74,7 @@ public class TrackController {
         int result = trackRepository.deleteById(id);
         if (result > 0) {
             return new ResponseEntity<>("Track was deleted successfully.", HttpStatus.OK);
-        } else {
+        } else {    
             return new ResponseEntity<>("Cannot find track with id=" + id, HttpStatus.NOT_FOUND);
         }
     }
@@ -104,6 +104,17 @@ public class TrackController {
     @GetMapping("/toppicks")
     public ResponseEntity<List<Track>> getTopPicks() {
         List<Track> tracks = trackRepository.topPicks();
+
+        if (tracks.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(tracks, HttpStatus.OK);
+        }
+    }
+
+    @GetMapping("tracks/search/{keyword}")
+    public ResponseEntity<List<Track>> searchTracks(@PathVariable("keyword") String keyword) {
+        List<Track> tracks = trackRepository.Search(keyword);
 
         if (tracks.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

@@ -13,4 +13,5 @@ public interface TrackInterface {
     List<Track> findByAlbumId(String albumId);
     List<Track> newTracks();
     List<Track> topPicks();
+    List<Track> Search(String keyword);
 }
