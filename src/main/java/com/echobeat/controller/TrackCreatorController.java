@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.echobeat.model.Artist;
 import com.echobeat.model.TrackCreator;
 import com.echobeat.repository.TrackCreatorInterface;
 
@@ -45,7 +46,7 @@ public class TrackCreatorController {
 
     @GetMapping("/track-creators/{trackId}/{artistId}")
     public ResponseEntity<TrackCreator> getTrackCreatorById(@PathVariable("trackId") String trackId,
-                                                                 @PathVariable("artistId") long artistId) {
+            @PathVariable("artistId") long artistId) {
         TrackCreator trackCreator = trackCreatorRepository.findByTrackIdAndArtistId(trackId, artistId);
 
         if (trackCreator != null) {
@@ -67,8 +68,8 @@ public class TrackCreatorController {
 
     @PutMapping("/track-creators/{trackId}/{artistId}")
     public ResponseEntity<String> updateTrackCreator(@PathVariable("trackId") String trackId,
-                                                       @PathVariable("artistId") long artistId,
-                                                       @RequestBody TrackCreator trackCreator) {
+            @PathVariable("artistId") long artistId,
+            @RequestBody TrackCreator trackCreator) {
         trackCreator.setTrack_id(trackId);
         trackCreator.setArtist_id(artistId);
 
@@ -81,18 +82,29 @@ public class TrackCreatorController {
     }
 
     @DeleteMapping("/track-creators/{trackId}/{artistId}")
-public ResponseEntity<String> deleteTrackCreator(@PathVariable("trackId") String trackId,
-                                                   @PathVariable("artistId") long artistId) {
-    try {
-        TrackCreator deletedTrackCreator = trackCreatorRepository.delete(trackId, artistId);
-        if (deletedTrackCreator != null) {
-            return new ResponseEntity<>("TrackCreator was deleted successfully.", HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>("Cannot find TrackCreator with trackId=" + trackId + " and artistId=" + artistId, HttpStatus.NOT_FOUND);
+    public ResponseEntity<String> deleteTrackCreator(@PathVariable("trackId") String trackId,
+            @PathVariable("artistId") long artistId) {
+        try {
+            TrackCreator deletedTrackCreator = trackCreatorRepository.delete(trackId, artistId);
+            if (deletedTrackCreator != null) {
+                return new ResponseEntity<>("TrackCreator was deleted successfully.", HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>("Cannot find TrackCreator with trackId=" + trackId + " and artistId=" + artistId, HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>("Cannot delete TrackCreator.", HttpStatus.INTERNAL_SERVER_ERROR);
         }
-    } catch (Exception e) {
-        return new ResponseEntity<>("Cannot delete TrackCreator.", HttpStatus.INTERNAL_SERVER_ERROR);
     }
-}
+
+    @GetMapping("/getTrackArtists/{trackId}")
+    public ResponseEntity<List<Artist>> getArtistsByTrackId(@PathVariable("trackId") String trackId) {
+        List<Artist> artists= trackCreatorRepository.getArtistsByTrackId(trackId);
+
+        if (artists.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(artists, HttpStatus.OK);
+        }
+    }
 
 }

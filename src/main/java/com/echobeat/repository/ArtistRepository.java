@@ -85,6 +85,7 @@ public class ArtistRepository implements ArtistInterface {
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Album.class),id);
     }
 
+
     @Override
     public List<Artist>searchArtist(String keyword){
         String sql = "SELECT * FROM artists WHERE artist_name LIKE ?";

@@ -1,6 +1,7 @@
 package com.echobeat.repository;
 import java.util.List;
 
+import com.echobeat.model.Artist;
 import com.echobeat.model.TrackCreator;
 
 public interface TrackCreatorInterface {
@@ -9,5 +10,6 @@ public interface TrackCreatorInterface {
     void update(TrackCreator trackCreator);
     TrackCreator findByTrackIdAndArtistId(String trackId, long artistId);
     List<TrackCreator> findAll();
+    List<Artist> getArtistsByTrackId(String trackId);
 }
 
