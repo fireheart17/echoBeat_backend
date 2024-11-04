@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.echobeat.model.Artist;
 import com.echobeat.model.TrackCreator;
 
 @Repository
@@ -50,5 +51,11 @@ public class TrackCreatorRepository implements TrackCreatorInterface {
     public List<TrackCreator> findAll() {
         String sql = "SELECT * FROM track_creators";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(TrackCreator.class));
+    }
+
+    @Override
+    public List<Artist> getArtistsByTrackId(String trackId) {
+        String sql = "SELECT * FROM artists WHERE artist_id IN (SELECT artist_id FROM track_creators WHERE track_id = ?)";
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Artist.class), trackId);
     }
 }

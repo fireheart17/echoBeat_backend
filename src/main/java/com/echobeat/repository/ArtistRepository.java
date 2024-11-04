@@ -82,4 +82,5 @@ public class ArtistRepository implements ArtistInterface {
         String sql = "SELECT * from albums where album_id in (SELECT album_id FROM created_album WHERE artist_id=?)";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Album.class),id);
     }
+
 }
