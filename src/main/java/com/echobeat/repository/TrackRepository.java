@@ -76,4 +76,9 @@ public class TrackRepository implements TrackInterface {
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Track.class));
     }
 
+    @Override
+    public List<Track> Search(String keyword) {
+        String sql = "SELECT * FROM tracks WHERE track_name LIKE ?";
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Track.class), keyword + "%");
+    }
 }
