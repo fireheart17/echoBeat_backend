@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.echobeat.model.PlaylistTrack;
 import com.echobeat.repository.PlaylistTrackRepository;
 import com.echobeat.model.Track;
-
+import com.echobeat.repository.TrackRepository;
 @CrossOrigin(origins = "http://localhost:8081") // Adjust origin as needed
 @RestController
 @RequestMapping("/api/playlistsTracks") // Adjust path based on your API design

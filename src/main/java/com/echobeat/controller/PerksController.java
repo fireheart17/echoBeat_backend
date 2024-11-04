@@ -51,23 +51,23 @@ public class PerksController {
         }
     }
 
-    @PutMapping("/update/{subscriptionId}")
-    public ResponseEntity<String> updatePerk(@PathVariable("subscriptionId") long subscriptionId,
-            @RequestBody Perks updatedPerk) {
-        try {
-            Perks existingPerk = perksRepository.findBySubscriptionId(subscriptionId);
+    // @PutMapping("/update/{subscriptionId}")
+    // public ResponseEntity<String> updatePerk(@PathVariable("subscriptionId") long subscriptionId,
+    //         @RequestBody Perks updatedPerk) {
+    //     try {
+    //         Perks existingPerk = perksRepository.findBySubscriptionId(subscriptionId);
 
-            if (existingPerk != null) {
-                existingPerk.setDescription(updatedPerk.getDescription());
-                perksRepository.update(existingPerk);
-                return new ResponseEntity<>("Perk updated successfully.", HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>("Perk not found.", HttpStatus.NOT_FOUND);
-            }
-        } catch (Exception e) {
-            return new ResponseEntity<>(e.toString(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+    //         if (existingPerk != null) {
+    //             existingPerk.setDescription(updatedPerk.getDescription());
+    //             perksRepository.update(existingPerk);
+    //             return new ResponseEntity<>("Perk updated successfully.", HttpStatus.OK);
+    //         } else {
+    //             return new ResponseEntity<>("Perk not found.", HttpStatus.NOT_FOUND);
+    //         }
+    //     } catch (Exception e) {
+    //         return new ResponseEntity<>(e.toString(), HttpStatus.INTERNAL_SERVER_ERROR);
+    //     }
+    // }
 
     @DeleteMapping("/delete/{subscriptionId}")
     public ResponseEntity<String> deletePerk(@PathVariable("subscriptionId") long subscriptionId) {
