@@ -1,3 +1,47 @@
+CREATE TABLE IF NOT EXISTS subscriptions (
+    subscription_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255),
+    price INT,
+    duration INT
+);
+
+CREATE TABLE IF NOT EXISTS albums (
+    album_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255),
+    genre VARCHAR(255),
+    release_date TIME
+);
+
+CREATE TABLE IF NOT EXISTS charts (
+    chart_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    chart_type VARCHAR(255)
+);
+
+CREATE TABLE IF NOT EXISTS podcast (
+    podcast_id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    podcast_name VARCHAR(255),
+    genre VARCHAR(100),
+    lyrics TEXT,
+    duration INT,
+    country VARCHAR(100),
+    like_count INT DEFAULT 0,
+    listen_count INT DEFAULT 0
+);
+
+
+CREATE TABLE IF NOT EXISTS artists (
+    artist_id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    artist_name VARCHAR(255),
+    first_name VARCHAR(255),
+    last_name VARCHAR(255),
+    password VARCHAR(255),
+    global_rank VARCHAR(50),
+    country VARCHAR(100),
+    about TEXT,
+    follower_count INT DEFAULT 0
+);
+
+
 CREATE TABLE IF NOT EXISTS users (
     user_id BIGINT PRIMARY KEY AUTO_INCREMENT,
     first_name VARCHAR(255),
@@ -14,36 +58,19 @@ CREATE TABLE IF NOT EXISTS users (
     ON UPDATE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS artists (
-    artist_id BIGINT PRIMARY KEY AUTO_INCREMENT,
-    artist_name VARCHAR(255),
-    first_name VARCHAR(255),
-    last_name VARCHAR(255),
-    password VARCHAR(255),
-    global_rank VARCHAR(50),
-    country VARCHAR(100),
-    about TEXT,
-    follower_count INT DEFAULT 0
-);
-
-CREATE TABLE IF NOT EXISTS track_creators (
-    track_id VARCHAR(255),
-    artist_id BIGINT,
-    PRIMARY KEY (track_id, artist_id),
-    FOREIGN KEY (track_id) REFERENCES tracks(track_id)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-    FOREIGN KEY (artist_id) REFERENCES artists(artist_id)
+CREATE TABLE IF NOT EXISTS playlists (
+    playlist_id BIGINT NOT NULL AUTO_INCREMENT,
+    title VARCHAR(255) ,
+    duration INT ,
+    user_id BIGINT ,
+    PRIMARY KEY (playlist_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
     ON DELETE CASCADE
     ON UPDATE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS albums (
-    album_id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(255),
-    genre VARCHAR(255),
-    release_date TIME
-);
+
+
 
 CREATE TABLE IF NOT EXISTS tracks (
     track_id VARCHAR(255) PRIMARY KEY,
@@ -60,9 +87,16 @@ CREATE TABLE IF NOT EXISTS tracks (
     ON UPDATE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS charts (
-    chart_id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    chart_type VARCHAR(255)
+CREATE TABLE IF NOT EXISTS track_creators (
+    track_id VARCHAR(255),
+    artist_id BIGINT,
+    PRIMARY KEY (track_id, artist_id),
+    FOREIGN KEY (track_id) REFERENCES tracks(track_id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+    FOREIGN KEY (artist_id) REFERENCES artists(artist_id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS liked_playlists (
@@ -77,12 +111,6 @@ CREATE TABLE IF NOT EXISTS liked_playlists (
     ON UPDATE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS subscriptions (
-    subscription_id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(255),
-    price INT,
-    duration INT
-);
 
 CREATE TABLE IF NOT EXISTS liked_songs (
     user_id BIGINT NOT NULL,
@@ -105,16 +133,6 @@ CREATE TABLE IF NOT EXISTS perks (
     ON UPDATE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS playlists (
-    playlist_id BIGINT NOT NULL AUTO_INCREMENT,
-    title VARCHAR(255) ,
-    duration INT ,
-    user_id BIGINT ,
-    PRIMARY KEY (playlist_id),
-    FOREIGN KEY (user_id) REFERENCES users(user_id)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE
-);
 
 CREATE TABLE IF NOT EXISTS playlist_tracks (
     playlist_id BIGINT NOT NULL,
@@ -141,16 +159,6 @@ CREATE TABLE IF NOT EXISTS podcast_creators (
     ON UPDATE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS podcast (
-    podcast_id BIGINT PRIMARY KEY AUTO_INCREMENT,
-    podcast_name VARCHAR(255),
-    genre VARCHAR(100),
-    lyrics TEXT,
-    duration INT,
-    country VARCHAR(100),
-    like_count INT DEFAULT 0,
-    listen_count INT DEFAULT 0
-);
 
 CREATE TABLE IF NOT EXISTS rankings (
     track_id VARCHAR(255),
@@ -186,6 +194,8 @@ CREATE TABLE IF NOT EXISTS followers (
     ON DELETE CASCADE
     ON UPDATE CASCADE
 );
+
+
 CREATE TABLE IF NOT EXISTS liked_albums (
     user_id BIGINT NOT NULL,
     album_id BIGINT NOT NULL,
@@ -197,6 +207,8 @@ CREATE TABLE IF NOT EXISTS liked_albums (
     ON DELETE CASCADE
     ON UPDATE CASCADE
 );
+
+
 CREATE TABLE IF NOT EXISTS liked_podcasts (
     user_id BIGINT NOT NULL,
     podcast_id BIGINT NOT NULL,
@@ -208,6 +220,8 @@ CREATE TABLE IF NOT EXISTS liked_podcasts (
     ON DELETE CASCADE
     ON UPDATE CASCADE
 );
+
+
 CREATE TABLE IF NOT EXISTS created_album (
     album_id BIGINT NOT NULL,
     artist_id BIGINT NOT NULL,
