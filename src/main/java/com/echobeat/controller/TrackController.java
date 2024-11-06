@@ -122,4 +122,18 @@ public class TrackController {
             return new ResponseEntity<>(tracks, HttpStatus.OK);
         }
     }
+
+    @GetMapping("/album/{id}")
+    public ResponseEntity<List<Track>> tracksInAlbum(@PathVariable("id") long id) {
+        try {
+            List<Track> tracks = trackRepository.tracksInAlbum(id);
+            if (tracks.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+
+            return new ResponseEntity<>(tracks, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
