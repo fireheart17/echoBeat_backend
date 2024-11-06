@@ -164,25 +164,25 @@ INSERT INTO playlists (playlist_id, title, duration, user_id) VALUES
 --     ON DELETE SET NULL
 --     ON UPDATE CASCADE
 -- );
-INSERT into tracks values ("3EPXxR3ImUwfayaurPi3cm","Be Alright","Pop","A",3,"USA",0,0,0);
-INSERT into tracks values ("7qiZfU4dY1lWllzX7mPBI3","Shape of You","Pop","A",4,"USA",0,0,0);
-INSERT into tracks values ("6habFhsOp2NvshLv26DqMb","Despacito","Reggaeton","A",4,"USA",0,0,0);
-INSERT into tracks values ("3KkXRkHbMCARz0aVfEt68P","Sunflower","Hip-Hop","A",5,"USA",0,0,0);
-INSERT into tracks values ("0VjIjW4GlUZAMYd2vXMi3b","Blinding Lights","Synthwave","A",4,"USA",0,0,0);
-INSERT into tracks values ("5nujrmhLynf4yMoMtj8AQF","Levitating","Pop","A",3,"USA",0,0,0);
-INSERT into tracks values ("5QO79kh1waicV47BqGRL3g","Save Your Tears","Synthwave","A",4,"USA",0,0,0);
-INSERT into tracks values ("4iJyoBOLtHqaGxP12qzhQI","Peaches","R&B","A",3,"USA",0,0,0);
-INSERT into tracks values ("67BtfxlNbhBmCDR2L2l8qd","MONTERO (Call Me By Your Name)","Hip-Hop","A",3,"USA",0,0,0);
-INSERT into tracks values ("5HCyWlXZPP0y6Gqq8TgA20","STAY","Pop","A",2,"USA",0,0,0);
-INSERT into tracks values ("5CQ30WqJwcep0pYcV4AMNc","Stairway to Heaven","Rock","A",8,"USA",0,0,0);
-INSERT into tracks values ("3hRV0jL3vUpRrcy398teAU","The Night We Met","Indie","A",3,"USA",0,0,0);
-INSERT into tracks values ("6DCZcSspjsKoFjzjrWoCdn","God's Plan","Hip-Hop","A",3,"USA",0,0,0);
-INSERT into tracks values ("4nVBt6MZDDP6tRVdQTgxJg","Story of My Life","Pop","A",4,"USA",0,0,0);
-INSERT into tracks values ("2tpWsVSb9UEmDRxAl1zhX1","Counting Stars","Pop","A",4,"USA",0,0,0);
-INSERT into tracks values ("35RWttZt8zGGzT0mWtlXpn","Jab Tak","Bollywood","A",4,"India",0,0,0);
-INSERT into tracks values ("6DXLO8LndZMVOHM0wNbpzg","Danza Kuduro","Reggaeton","A",4,"Puerto Rico",0,0,0);
-INSERT into tracks values ("7JJmb5XwzOO8jgpou264Ml","There's Nothing Holdin' Me Back","Pop","A",3,"Canada",0,0,0);
-INSERT into tracks values ("4mBmsPcPa1Eu4LDTHq55Ab","Hothon Se Chhu Lo Tum","Bollywood","A",5,"India",0,0,0);
+INSERT into tracks values ("3EPXxR3ImUwfayaurPi3cm","Be Alright","Pop","A",3,"USA",0,0,1);
+INSERT into tracks values ("7qiZfU4dY1lWllzX7mPBI3","Shape of You","Pop","A",4,"USA",0,0,2);
+INSERT into tracks values ("6habFhsOp2NvshLv26DqMb","Despacito","Reggaeton","A",4,"USA",0,0,3);
+INSERT into tracks values ("3KkXRkHbMCARz0aVfEt68P","Sunflower","Hip-Hop","A",5,"USA",0,0,4);
+INSERT into tracks values ("0VjIjW4GlUZAMYd2vXMi3b","Blinding Lights","Synthwave","A",4,"USA",0,0,5);
+INSERT into tracks values ("5nujrmhLynf4yMoMtj8AQF","Levitating","Pop","A",3,"USA",0,0,6);
+INSERT into tracks values ("5QO79kh1waicV47BqGRL3g","Save Your Tears","Synthwave","A",4,"USA",0,0,7);
+INSERT into tracks values ("4iJyoBOLtHqaGxP12qzhQI","Peaches","R&B","A",3,"USA",0,0,8);
+INSERT into tracks values ("67BtfxlNbhBmCDR2L2l8qd","MONTERO (Call Me By Your Name)","Hip-Hop","A",3,"USA",0,0,9);
+INSERT into tracks values ("5HCyWlXZPP0y6Gqq8TgA20","STAY","Pop","A",2,"USA",0,0,10);
+INSERT into tracks values ("5CQ30WqJwcep0pYcV4AMNc","Stairway to Heaven","Rock","A",8,"USA",0,0,1);
+INSERT into tracks values ("3hRV0jL3vUpRrcy398teAU","The Night We Met","Indie","A",3,"USA",0,0,2);
+INSERT into tracks values ("6DCZcSspjsKoFjzjrWoCdn","God's Plan","Hip-Hop","A",3,"USA",0,0,3);
+INSERT into tracks values ("4nVBt6MZDDP6tRVdQTgxJg","Story of My Life","Pop","A",4,"USA",0,0,4);
+INSERT into tracks values ("2tpWsVSb9UEmDRxAl1zhX1","Counting Stars","Pop","A",4,"USA",0,0,5);
+INSERT into tracks values ("35RWttZt8zGGzT0mWtlXpn","Jab Tak","Bollywood","A",4,"India",0,0,6);
+INSERT into tracks values ("6DXLO8LndZMVOHM0wNbpzg","Danza Kuduro","Reggaeton","A",4,"Puerto Rico",0,0,7);
+INSERT into tracks values ("7JJmb5XwzOO8jgpou264Ml","There's Nothing Holdin' Me Back","Pop","A",3,"Canada",0,0,8);
+INSERT into tracks values ("4mBmsPcPa1Eu4LDTHq55Ab","Hothon Se Chhu Lo Tum","Bollywood","A",5,"India",0,0,9);
 
 
 -- CREATE TABLE IF NOT EXISTS track_creators (
@@ -196,11 +196,11 @@ INSERT into tracks values ("4mBmsPcPa1Eu4LDTHq55Ab","Hothon Se Chhu Lo Tum","Bol
 --     ON DELETE CASCADE
 --     ON UPDATE CASCADE
 -- );
-INSERT into track_creators values ("EPXxR3ImUwfayaurPi3cm",1);
-INSERT into track_creators values ("qiZfU4dY1lWllzX7mPBI3",2);
+INSERT into track_creators values ("3EPXxR3ImUwfayaurPi3cm",1);
+INSERT into track_creators values ("7qiZfU4dY1lWllzX7mPBI3",2);
 INSERT into track_creators values ("6habFhsOp2NvshLv26DqMb",3);
 INSERT into track_creators values ("3KkXRkHbMCARz0aVfEt68P",4);
-INSERT into track_creators values ("VjIjW4GlUZAMYd2vXMi3b",5);
+INSERT into track_creators values ("0VjIjW4GlUZAMYd2vXMi3b",5);
 INSERT into track_creators values ("5nujrmhLynf4yMoMtj8AQF",6);
 INSERT into track_creators values ("5QO79kh1waicV47BqGRL3g",7);
 INSERT into track_creators values ("4iJyoBOLtHqaGxP12qzhQI",8);

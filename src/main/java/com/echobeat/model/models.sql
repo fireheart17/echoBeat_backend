@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS albums (
     album_id BIGINT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255),
     genre VARCHAR(255),
-    release_date TIME
+    release_date DATE
 );
 
 CREATE TABLE IF NOT EXISTS charts (
