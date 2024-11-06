@@ -41,7 +41,7 @@ public class FollowerRepository implements FollowerInterface {
 
     @Override
     public boolean checkFollowerToken(long artist_id, long user_id) {
-        return jdbcTemplate.query("SELECT * FROM followers WHERE artist_id=? and user_id=?", new BeanPropertyRowMapper<>(Follower.class), artist_id, user_id) != null;
+        return !jdbcTemplate.query("SELECT * FROM followers WHERE artist_id=? and user_id=?", new BeanPropertyRowMapper<>(Follower.class), artist_id, user_id).isEmpty();
     }
 
     @Override
