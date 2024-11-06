@@ -233,3 +233,102 @@ CREATE TABLE IF NOT EXISTS created_album (
     ON DELETE CASCADE
     ON UPDATE CASCADE
 );
+
+DROP TRIGGER IF EXISTS update_follower_count_after_insert;
+DROP TRIGGER IF EXISTS update_follower_count_after_delete;
+DROP TRIGGER IF EXISTS increment_like_count_for_tracks;
+DROP TRIGGER IF EXISTS decrement_like_count_for_tracks;
+DROP TRIGGER IF EXISTS increment_like_count_for_podcasts;
+DROP TRIGGER IF EXISTS decrement_like_count_for_podcasts;
+
+DELIMITER //
+
+CREATE TRIGGER update_follower_count_after_insert
+AFTER INSERT ON followers
+FOR EACH ROW
+BEGIN
+    UPDATE artists
+    SET follower_count = follower_count + 1
+    WHERE artist_id = NEW.artist_id;
+END //
+
+DELIMITER ;
+
+
+
+
+DELIMITER //
+
+
+CREATE TRIGGER update_follower_count_after_delete
+AFTER DELETE ON followers
+FOR EACH ROW
+BEGIN
+    UPDATE artists
+    SET follower_count = GREATEST(follower_count - 1, 0)
+    WHERE artist_id = OLD.artist_id;
+END //
+
+DELIMITER ;
+
+
+DELIMITER //
+
+
+CREATE TRIGGER increment_like_count_for_tracks
+AFTER INSERT ON liked_songs
+FOR EACH ROW
+BEGIN
+    UPDATE tracks
+    SET like_count = like_count + 1
+    WHERE track_id = NEW.track_id;
+END //
+
+DELIMITER ;
+
+
+DELIMITER //
+
+
+CREATE TRIGGER decrement_like_count_for_tracks
+AFTER DELETE ON liked_songs
+FOR EACH ROW
+BEGIN
+    UPDATE tracks
+    SET like_count = GREATEST(like_count - 1, 0)
+    WHERE track_id = OLD.track_id;
+END //
+
+DELIMITER ;
+
+
+DELIMITER //
+
+
+CREATE TRIGGER increment_like_count_for_podcasts
+AFTER INSERT ON liked_podcasts
+FOR EACH ROW
+BEGIN
+    UPDATE podcast
+    SET like_count = like_count + 1
+    WHERE podcast_id = NEW.podcast_id;
+END //
+
+DELIMITER ;
+
+
+DELIMITER //
+
+
+CREATE TRIGGER decrement_like_count_for_podcasts
+AFTER DELETE ON liked_podcasts
+FOR EACH ROW
+BEGIN
+    UPDATE podcast
+    SET like_count = GREATEST(like_count - 1, 0)
+    WHERE podcast_id = OLD.podcast_id;
+END //
+
+DELIMITER ;
+
+
