@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.echobeat.model.Artist;
 import com.echobeat.model.User;
 import com.echobeat.repository.UserInterface;
 import com.echobeat.util.JwtUtil;
@@ -128,6 +129,21 @@ public class UserController {
 
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/getartists")//C
+    public ResponseEntity<List<Artist>> C4(HttpServletRequest request) {
+        long user_id = jwtUtil.AuthenticateToken(request);
+        try {
+            List<Artist> artists = userRepository.getArtists(user_id);
+            if (artists.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            } else {
+                return new ResponseEntity<>(artists, HttpStatus.OK);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

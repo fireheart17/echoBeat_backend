@@ -2,6 +2,7 @@ package com.echobeat.repository;
 
 import java.util.List;
 
+import com.echobeat.model.Artist;
 import com.echobeat.model.User;
 
 public interface UserInterface {
@@ -19,5 +20,6 @@ public interface UserInterface {
 
   int deleteAll();
 
+  List<Artist> getArtists(long user_id);
   
 }
