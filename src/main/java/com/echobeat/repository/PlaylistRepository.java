@@ -47,4 +47,10 @@ public class PlaylistRepository implements PlaylistInterface {
         return jdbcTemplate.query("SELECT * FROM playlists WHERE user_id = ?",
                 new BeanPropertyRowMapper<>(Playlist.class), userId);
     }
+
+    @Override
+    public List<Playlist> search(String keyword){
+        return jdbcTemplate.query("SELECT * FROM playlists WHERE title LIKE ?",
+                new BeanPropertyRowMapper<>(Playlist.class), keyword + "%");
+    }
 }

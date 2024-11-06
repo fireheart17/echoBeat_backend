@@ -1,5 +1,6 @@
 package com.echobeat.repository;
 
+import java.util.List;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -55,6 +56,12 @@ public class PodcastRepository implements PodcastInterface {
     public Podcast findById(long podcastId) {
         String sql = "SELECT * FROM podcast WHERE podcast_id = ?";
         return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Podcast.class), podcastId);
+    }
+
+    @Override
+    public List<Podcast> search(String keyword) {
+        String sql = "SELECT * FROM podcast WHERE podcast_name LIKE ?";
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Podcast.class), keyword + "%");
     }
 }
 

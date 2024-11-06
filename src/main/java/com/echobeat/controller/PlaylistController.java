@@ -88,4 +88,19 @@ public class PlaylistController {
       return new ResponseEntity<>(e.toString(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
+
+  @GetMapping("/search/{keyword}")
+  public ResponseEntity<List<Playlist>> searchPlaylist(@PathVariable("keyword") String keyword) {
+    try {
+      List<Playlist> playlists = playlistRepository.search(keyword);
+
+      if (playlists.isEmpty()) {
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+      }
+
+      return new ResponseEntity<>(playlists, HttpStatus.OK);
+    } catch (Exception e) {
+      return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
 }

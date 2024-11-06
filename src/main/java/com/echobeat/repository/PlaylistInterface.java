@@ -13,4 +13,6 @@ public interface PlaylistInterface {
     Playlist findByPlaylistId(long playlistId);
 
     List<Playlist> findByUserId(long userId);
+
+    List<Playlist> search(String keyword);
 }

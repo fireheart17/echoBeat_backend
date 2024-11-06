@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+import java.util.List;
 import com.echobeat.model.Podcast;
 import com.echobeat.repository.PodcastInterface;
 
@@ -85,6 +85,21 @@ public class PodcastController {
       }
     } catch (Exception e) {
       return new ResponseEntity<>("Cannot delete Podcast.", HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  @GetMapping("/podcasts/search/{keyword}")
+  public ResponseEntity<List<Podcast>> searchPodcast(@PathVariable("keyword") String keyword) {
+    try {
+      List<Podcast> podcasts = podcastRepository.search(keyword);
+
+      if (podcasts.isEmpty()) {
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+      }
+
+      return new ResponseEntity<>(podcasts, HttpStatus.OK);
+    } catch (Exception e) {
+      return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 }
