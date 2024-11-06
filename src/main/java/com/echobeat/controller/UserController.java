@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,6 +33,8 @@ public class UserController {
 
     @Autowired
     UserInterface userRepository;
+
+    private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     @GetMapping("/users")
     public ResponseEntity<List<User>> getAllUsers(@RequestParam(required = false) String title) {
@@ -89,7 +92,7 @@ public class UserController {
             userRepository.save(new User(user.getFirstName(),
                     user.getLastName(),
                     user.getUsername(),
-                    user.getPassword(),
+                    encoder.encode(user.getPassword()),
                     user.getDob(),
                     user.getAge(),
                     user.getGender(),

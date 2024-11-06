@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import com.echobeat.model.Artist;
@@ -16,6 +17,8 @@ public class UserRepository implements UserInterface {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     @Override
     public int save(User user) {
@@ -65,10 +68,14 @@ public class UserRepository implements UserInterface {
     @Override
     public User findByCredentials(String username, String password) {
         try {
-            User user = jdbcTemplate.queryForObject("SELECT * FROM users WHERE username=? AND password=?",
-                    BeanPropertyRowMapper.newInstance(User.class), username, password);
-
-            return user;
+            User user = jdbcTemplate.queryForObject("SELECT * FROM users WHERE username=?",
+                    BeanPropertyRowMapper.newInstance(User.class), username);
+            
+            if(encoder.matches(password,user.getPassword())){
+                return user;
+            }else{
+                return null;
+            }
         } catch (IncorrectResultSizeDataAccessException e) {
             return null;
         }
