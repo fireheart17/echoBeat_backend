@@ -97,8 +97,9 @@ public class FollowerController {
     }
 
     // Remove a follower by artist_id and user_id
-    @DeleteMapping("/followers/{artist_id}/{user_id}")
-    public ResponseEntity<String> removeFollower(@PathVariable("artist_id") long artist_id, @PathVariable("user_id") long user_id) {
+    @DeleteMapping("/followers/{artist_id}")
+    public ResponseEntity<String> removeFollower(@PathVariable("artist_id") long artist_id,HttpServletRequest request) {
+        long user_id = jwtUtil.AuthenticateToken(request);
         try {
             int result = followerRepository.removeFollower(artist_id, user_id);
             if (result > 0) {
