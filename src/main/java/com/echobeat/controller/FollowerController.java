@@ -54,9 +54,9 @@ public class FollowerController {
         try {
             boolean result = followerRepository.checkFollowerToken(artist_id,user_id);
             if (result ) {
-                return new ResponseEntity<>("True", HttpStatus.CREATED);
+                return new ResponseEntity<>("True", HttpStatus.OK);
             } else {
-                return new ResponseEntity<>("False", HttpStatus.INTERNAL_SERVER_ERROR);
+                return new ResponseEntity<>("False", HttpStatus.OK);
             }
         } catch (Exception e) {
             return new ResponseEntity<>(e.toString(), HttpStatus.INTERNAL_SERVER_ERROR);
