@@ -26,7 +26,7 @@ public class RankingRepository implements RankingInterface {
 
     @Override
     public List<Track> findByChartId(long chartId) {
-        String sql = "SELECT * from tracks where track_id in (SELECT track_id FROM rankings WHERE chart_id = ?)";
+        String sql = "SELECT t.* FROM tracks t JOIN rankings r ON t.track_id = r.track_id WHERE r.chart_id = ? ORDER BY r.rank_val ASC;";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Track.class), chartId);
     }
 
@@ -51,3 +51,5 @@ public class RankingRepository implements RankingInterface {
         return null;
     }
 }
+
+
