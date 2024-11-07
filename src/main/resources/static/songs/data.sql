@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS subscriptions (
 
 CREATE TABLE IF NOT EXISTS albums (
     album_id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(255),
+    title VARCHAR(255) UNIQUE,
     genre VARCHAR(255),
     release_date DATE
 );
@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS charts (
 
 CREATE TABLE IF NOT EXISTS podcast (
     podcast_id BIGINT PRIMARY KEY AUTO_INCREMENT,
-    podcast_name VARCHAR(255),
+    podcast_name VARCHAR(255) UNIQUE,
     genre VARCHAR(100),
     lyrics TEXT,
     duration INT,
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS podcast (
 
 CREATE TABLE IF NOT EXISTS artists (
     artist_id BIGINT PRIMARY KEY AUTO_INCREMENT,
-    artist_name VARCHAR(255),
+    artist_name VARCHAR(255) UNIQUE,
     first_name VARCHAR(255),
     last_name VARCHAR(255),
     password VARCHAR(255),
@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS users (
 
 CREATE TABLE IF NOT EXISTS playlists (
     playlist_id BIGINT NOT NULL AUTO_INCREMENT,
-    title VARCHAR(255) ,
+    title VARCHAR(255) UNIQUE,
     duration INT ,
     user_id BIGINT ,
     PRIMARY KEY (playlist_id),

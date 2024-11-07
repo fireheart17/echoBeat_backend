@@ -1,5 +1,6 @@
 package com.echobeat.controller;
 
+import java.io.File;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,12 +9,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.echobeat.model.Track;
 import com.echobeat.repository.TrackInterface;
@@ -40,7 +43,7 @@ public class TrackController {
     @PostMapping("/tracks")
     public ResponseEntity<String> createTrack(@RequestBody Track track) {
         try {
-            System.err.println(track.getTrackId());
+            // System.err.println(track.getAlbum_id());
             trackRepository.save(track);
             return new ResponseEntity<>("Track was created successfully.", HttpStatus.CREATED);
         } catch (Exception e) {
@@ -48,6 +51,23 @@ public class TrackController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @PostMapping("/upload")
+    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file,@RequestParam("track_id") String track_id) {
+        //TODO: process POST request
+        // System.err.println(track.getTrackId());
+            // trackRepository.save(track);
+            String path=System.getProperty("user.dir") + "/src/main/resources/static/songs/track_" + track_id+".mp3";
+            // System.out.println(path);
+            try {
+                file.transferTo(new File(path));
+                
+            } catch (Exception e) {
+                return new ResponseEntity<>(e.toString(), HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+            return new ResponseEntity<>("Track uploaded successfully.", HttpStatus.CREATED);
+    }
+    
 
     @PostMapping("/tracks/{id}")
     public ResponseEntity<String> updateTrack(@PathVariable("id") String id, @RequestBody Track track) {
@@ -75,7 +95,7 @@ public class TrackController {
         int result = trackRepository.deleteById(id);
         if (result > 0) {
             return new ResponseEntity<>("Track was deleted successfully.", HttpStatus.OK);
-        } else {    
+        } else {
             return new ResponseEntity<>("Cannot find track with id=" + id, HttpStatus.NOT_FOUND);
         }
     }
