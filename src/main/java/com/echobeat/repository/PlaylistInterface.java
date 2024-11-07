@@ -15,4 +15,6 @@ public interface PlaylistInterface {
     List<Playlist> findByUserId(long userId);
 
     List<Playlist> search(String keyword);
+
+    int incrementListenCount(long playlistId);
 }

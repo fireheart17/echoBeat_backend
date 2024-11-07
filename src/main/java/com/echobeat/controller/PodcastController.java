@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -102,4 +103,18 @@ public class PodcastController {
       return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
+
+  @PatchMapping("/podcasts/{id}/incrementListen")
+  public ResponseEntity<String> incrementListen(@PathVariable("id") long id) {
+    try {
+      Podcast podcast = podcastRepository.findById(id);
+      podcast.setListen_count(podcast.getListen_count() + 1);
+      podcastRepository.update(podcast);
+      return new ResponseEntity<>("Listen count incremented successfully.", HttpStatus.OK);
+    } catch (Exception e) {
+      return new ResponseEntity<>("Cannot increment listen count.", HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  
 }

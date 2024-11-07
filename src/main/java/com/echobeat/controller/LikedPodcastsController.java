@@ -24,6 +24,9 @@ public class LikedPodcastsController {
     @Autowired
     private LikedPodcastsInterface likedPodcastsRepository;
 
+    @Autowired
+    private JwtUtil jwtUtil;
+
     // Endpoint to add a liked podcast
     @PostMapping("/liked-podcasts")
     public ResponseEntity<String> addLikedPodcast(@RequestBody LikedPodcasts likedPodcast) {
@@ -56,6 +59,25 @@ public class LikedPodcastsController {
             }
 
             return new ResponseEntity<>(likedPodcasts, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/likedPodcastFromToken")
+    public ResponseEntity<List<Long>> getLikedSongsByToken(HttpServletRequest request) {
+        long userId = jwtUtil.AuthenticateToken(request);
+        try {
+            List<Podcast> likedPodcasts = likedPodcastsRepository.findLikedPodcastsByUserId(userId);
+            if (likedPodcasts.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            List<Long> resp = new ArrayList<>();
+            for (Podcast item : likedPodcasts) {
+                resp.add(item.getPodcast_id());
+            }
+
+            return new ResponseEntity<>(resp, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }

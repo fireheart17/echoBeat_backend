@@ -53,4 +53,9 @@ public class PlaylistRepository implements PlaylistInterface {
         return jdbcTemplate.query("SELECT * FROM playlists WHERE title LIKE ?",
                 new BeanPropertyRowMapper<>(Playlist.class), keyword + "%");
     }
+
+    @Override
+    public int incrementListenCount(long playlistId) {
+        return jdbcTemplate.update("UPDATE playlists SET listen_count = listen_count + 1 WHERE playlist_id = ?", playlistId);
+    }
 }
