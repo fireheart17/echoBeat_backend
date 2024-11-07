@@ -240,6 +240,8 @@ DROP TRIGGER IF EXISTS increment_like_count_for_tracks;
 DROP TRIGGER IF EXISTS decrement_like_count_for_tracks;
 DROP TRIGGER IF EXISTS increment_like_count_for_podcasts;
 DROP TRIGGER IF EXISTS decrement_like_count_for_podcasts;
+DROP TRIGGER IF EXISTS update_playlist_duration_after_insert;
+DROP TRIGGER IF EXISTS update_playlist_duration_after_delete;
 
 DELIMITER //
 
@@ -332,6 +334,39 @@ END //
 DELIMITER ;
 
 
+DELIMITER //
+
+CREATE TRIGGER update_playlist_duration_after_insert
+AFTER INSERT ON playlist_tracks
+FOR EACH ROW
+BEGIN
+    UPDATE playlists
+    SET duration = (
+        SELECT COALESCE(SUM(duration), 0)
+        FROM tracks
+        WHERE track_id IN (SELECT track_id FROM playlist_tracks WHERE playlist_id = NEW.playlist_id)
+    )
+    WHERE playlist_id = NEW.playlist_id;
+END//
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE TRIGGER update_playlist_duration_after_delete
+AFTER DELETE ON playlist_tracks
+FOR EACH ROW
+BEGIN
+    UPDATE playlists
+    SET duration = (
+        SELECT COALESCE(SUM(duration), 0)
+        FROM tracks
+        WHERE track_id IN (SELECT track_id FROM playlist_tracks WHERE playlist_id = OLD.playlist_id)
+    )
+    WHERE playlist_id = OLD.playlist_id;
+END//
+
+DELIMITER ;
 
 
 
@@ -841,3 +876,6 @@ INSERT INTO created_album (album_id, artist_id) VALUES
 (8, 8),
 (9, 9),
 (10, 10);
+
+
+
