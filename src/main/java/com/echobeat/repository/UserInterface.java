@@ -22,4 +22,6 @@ public interface UserInterface {
 
   List<Artist> getArtists(long user_id);
   
+  void setSubscriptionId1(Long subscription_id,Long user_id);
+  
 }
