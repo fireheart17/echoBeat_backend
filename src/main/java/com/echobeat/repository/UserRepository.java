@@ -90,4 +90,8 @@ public class UserRepository implements UserInterface {
     public List<Artist> getArtists(long user_id) {
         return jdbcTemplate.query("SELECT * FROM artists WHERE artist_id IN (SELECT artist_id FROM followers WHERE user_id=?)", new BeanPropertyRowMapper<>(Artist.class), user_id);
     }
+    @Override
+    public void setSubscriptionId1(Long subscriptionId,Long user_id) {
+        jdbcTemplate.update("UPDATE users SET subscription_id=? WHERE user_id=?", subscriptionId, user_id);
+    }
 }

@@ -2,7 +2,7 @@ package com.echobeat.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -149,4 +149,24 @@ public class UserController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @PostMapping("/users/update-subscription")
+    public ResponseEntity<String> updateSubscription(HttpServletRequest request, @RequestBody Map<String, Long> payload) {
+        try {
+            long user_id = jwtUtil.AuthenticateToken(request);
+            long subscriptionId = payload.get("subscription_id");
+            System.out.println(subscriptionId);
+            User user = userRepository.findById(user_id);
+            if (user != null) {
+                // System.out.println(user.getSubscriptionId());
+                userRepository.setSubscriptionId1(subscriptionId, user_id);
+                return new ResponseEntity<>("Subscription updated successfully", HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>("An error occurred", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }
+
