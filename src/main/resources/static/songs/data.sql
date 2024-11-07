@@ -621,11 +621,11 @@ INSERT INTO liked_songs (user_id, track_id) VALUES
 --     ON UPDATE CASCADE
 -- );
 INSERT INTO perks (subscription_id, description) VALUES
-(1, "Ad-Free Experience"),
-(1, "Unlimited Skips"),
-(2, "Exclusive Content"),
-(2, "Offline Listening"),
-(3, "Priority Support"),
+(1, "Free Forever"),
+(1, "Basic Streaming"),
+(2, "Add Free Listening"),
+(2, "Download to play Offline"),
+(2, "Higher Audio Quality"),
 (3, "Early Access to New Releases"),
 (4, "Access to Premium Podcasts"),
 (5, "VIP Concert Invitations"),
