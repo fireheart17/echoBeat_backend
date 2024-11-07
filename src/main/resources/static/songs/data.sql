@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS users (
     dob DATE,
     age INT,
     gender VARCHAR(10),
-    subscription_id BIGINT,
+    subscription_id BIGINT DEFAULT 1,
     subscription_end_date VARCHAR(255),
     FOREIGN KEY (subscription_id) REFERENCES subscriptions(subscription_id)
     ON DELETE SET NULL
