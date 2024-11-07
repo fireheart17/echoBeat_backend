@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS users (
     user_id BIGINT PRIMARY KEY AUTO_INCREMENT,
     first_name VARCHAR(255),
     last_name VARCHAR(255),
-    username VARCHAR(255),
+    username VARCHAR(255) UNIQUE,
     password VARCHAR(255),
     dob DATE,
     age INT,
@@ -240,6 +240,8 @@ DROP TRIGGER IF EXISTS increment_like_count_for_tracks;
 DROP TRIGGER IF EXISTS decrement_like_count_for_tracks;
 DROP TRIGGER IF EXISTS increment_like_count_for_podcasts;
 DROP TRIGGER IF EXISTS decrement_like_count_for_podcasts;
+DROP TRIGGER IF EXISTS update_playlist_duration_after_insert;
+DROP TRIGGER IF EXISTS update_playlist_duration_after_delete;
 
 DELIMITER //
 
@@ -332,6 +334,39 @@ END //
 DELIMITER ;
 
 
+DELIMITER //
+
+CREATE TRIGGER update_playlist_duration_after_insert
+AFTER INSERT ON playlist_tracks
+FOR EACH ROW
+BEGIN
+    UPDATE playlists
+    SET duration = (
+        SELECT COALESCE(SUM(duration), 0)
+        FROM tracks
+        WHERE track_id IN (SELECT track_id FROM playlist_tracks WHERE playlist_id = NEW.playlist_id)
+    )
+    WHERE playlist_id = NEW.playlist_id;
+END//
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE TRIGGER update_playlist_duration_after_delete
+AFTER DELETE ON playlist_tracks
+FOR EACH ROW
+BEGIN
+    UPDATE playlists
+    SET duration = (
+        SELECT COALESCE(SUM(duration), 0)
+        FROM tracks
+        WHERE track_id IN (SELECT track_id FROM playlist_tracks WHERE playlist_id = OLD.playlist_id)
+    )
+    WHERE playlist_id = OLD.playlist_id;
+END//
+
+DELIMITER ;
 
 
 
@@ -621,11 +656,11 @@ INSERT INTO liked_songs (user_id, track_id) VALUES
 --     ON UPDATE CASCADE
 -- );
 INSERT INTO perks (subscription_id, description) VALUES
-(1, "Ad-Free Experience"),
-(1, "Unlimited Skips"),
-(2, "Exclusive Content"),
-(2, "Offline Listening"),
-(3, "Priority Support"),
+(1, "Free Forever"),
+(1, "Basic Streaming"),
+(2, "Add Free Listening"),
+(2, "Download to play Offline"),
+(2, "Higher Audio Quality"),
 (3, "Early Access to New Releases"),
 (4, "Access to Premium Podcasts"),
 (5, "VIP Concert Invitations"),
@@ -841,3 +876,6 @@ INSERT INTO created_album (album_id, artist_id) VALUES
 (8, 8),
 (9, 9),
 (10, 10);
+
+
+

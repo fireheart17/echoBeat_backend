@@ -87,4 +87,10 @@ public class TrackRepository implements TrackInterface {
         String sql = "SELECT * FROM tracks WHERE album_id = ?";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Track.class), id);
     }
+
+    @Override
+    public int incrementListenCount(String trackId) {
+        String sql = "UPDATE tracks SET listen_count = listen_count + 1 WHERE track_id = ?";
+        return jdbcTemplate.update(sql, trackId);
+    }
 }

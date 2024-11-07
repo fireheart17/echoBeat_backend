@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PatchMapping;
 
 import com.echobeat.model.Track;
 import com.echobeat.repository.TrackInterface;
@@ -136,4 +137,16 @@ public class TrackController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @PatchMapping("/tracks/{id}/incrementListen")
+    public ResponseEntity<String> incrementListenCount(@PathVariable("id") String id) {
+        int result = trackRepository.incrementListenCount(id);
+
+        if (result > 0) {
+            return new ResponseEntity<>("Listen count incremented successfully.", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Track not found or failed to update.", HttpStatus.NOT_FOUND);
+        }
+    }
+
 }
