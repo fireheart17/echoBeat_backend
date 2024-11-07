@@ -1,6 +1,9 @@
 package com.echobeat.controller;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +21,7 @@ import com.echobeat.model.LikedPlaylists;
 import com.echobeat.model.Track;
 import com.echobeat.model.Playlist;
 import com.echobeat.repository.LikedPlaylistsInterface;
+import com.echobeat.util.JwtUtil;
 
 @CrossOrigin(origins = "http://localhost:8081")
 @RestController
@@ -26,6 +30,9 @@ public class LikedPlaylistsController {
 
     @Autowired
     private LikedPlaylistsInterface likedPlaylistRepository;
+
+    @Autowired
+    private JwtUtil jwtUtil;
 
     @GetMapping("/likedplaylists/{userId}/{playlistId}")
     public ResponseEntity<Boolean> getLikedPlaylistById(@PathVariable("userId") long userId, 
@@ -86,6 +93,26 @@ public class LikedPlaylistsController {
             }
 
             return new ResponseEntity<>(likedPlaylists, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
+    @GetMapping("/likedPlaylistsFromToken")
+    public ResponseEntity<List<String>> getLikedSongsByToken(HttpServletRequest request) {
+        long userId = jwtUtil.AuthenticateToken(request);
+        try {
+            List<Playlist> likedSongs = likedPlaylistRepository.findLikedPlaylistsByUserId(userId);
+            if (likedSongs.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            List<String> resp = new ArrayList<>();
+            for (Playlist item : likedSongs) {
+                resp.add(String.valueOf(item.getPlaylist_id()));
+            }
+
+            return new ResponseEntity<>(resp, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
